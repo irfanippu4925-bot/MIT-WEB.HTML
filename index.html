@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +8,7 @@
 
   <meta
     name="muhammed irfan"
-    content="MIT DISINIG — Creative design studio for branding, UI/UX, websites and digital experiences."
+    content="MIT- DISINIG — Creative design studio for branding, UI/UX, websites and digital experiences."
   >
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -20,6 +19,14 @@
   >
 
   <style>
+    @font-face {
+      font-family: "Tenada";
+      src: url("./Tenada.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
       --black: #080808;
       --black-2: #101010;
@@ -43,8 +50,15 @@
     }
 
     body {
-      font-family: "Inter", sans-serif;
-      background: var(--black);
+      font-family: "Tenada", "Inter", sans-serif;
+      background-color: var(--black);
+      background-image:
+        radial-gradient(ellipse at 72% 22%, rgba(217,255,63,.22) 0, transparent 20%),
+        repeating-radial-gradient(ellipse at 68% 28%, transparent 0 18px, rgba(217,255,63,.16) 19px 21px, transparent 22px 48px),
+        linear-gradient(115deg, #080808 0%, #101510 48%, #080808 100%);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
       color: var(--white);
       line-height: 1.6;
       overflow-x: hidden;
@@ -371,7 +385,11 @@
       width: 275px;
       height: 355px;
       padding: 30px;
-      background: #111;
+      background-color: #06062b;
+      background-image: url("https://i.pinimg.com/736x/fb/65/bb/fb65bb8b36b570ca9be3bb99c8c020a1.jpg");
+      background-position: center;
+      background-size: 100% 128%;
+      background-repeat: no-repeat;
       border: 1px solid #333;
       position: relative;
       z-index: 3;
@@ -381,6 +399,10 @@
       justify-content: flex-end;
       box-shadow: 25px 35px 70px rgba(0,0,0,.55);
       animation: cardFloat 5s ease-in-out infinite;
+    }
+
+    .hero-card > * {
+      visibility: hidden;
     }
 
     .card-top {
@@ -549,7 +571,7 @@
     ========================= */
 
     .services {
-      background: var(--black);
+      background: rgba(8,8,8,.88);
     }
 
     .service-grid {
@@ -896,7 +918,7 @@
     ========================= */
 
     .contact {
-      background: var(--black);
+      background: rgba(8,8,8,.88);
     }
 
     .contact-grid {
@@ -1276,9 +1298,7 @@
         </p>
 
         <h1>
-          We create
-          <span>bold ideas</span>
-          into reality.
+          New work available
         </h1>
 
         <p class="hero-text">
@@ -1807,8 +1827,8 @@
               EMAIL
             </small>
 
-            <a href="mailto:hello@mitdisinig.com">
-              hello@mitdisinig.com
+            <a href="irfanippu4925@gmail.com">
+              irfanippu4925@gmail.com
             </a>
 
           </div>
@@ -1819,8 +1839,8 @@
               PHONE
             </small>
 
-            <a href="tel:+919876543210">
-              +91 98765 43210
+            <a href="tel:+8590871596">
+              +91 8590871596
             </a>
 
           </div>
@@ -1831,8 +1851,12 @@
               LOCATION
             </small>
 
-            <a href="#">
-              Kerala, India
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Deverkovil%2C%20Kerala%2C%20India"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Deverkovil, Kerala, India
             </a>
 
           </div>
