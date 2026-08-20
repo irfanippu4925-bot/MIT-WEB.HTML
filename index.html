@@ -1,0 +1,2079 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>MIT DISINIG — Creative Design Studio</title>
+
+  <meta
+    name="muhammed irfan"
+    content="MIT DISINIG — Creative design studio for branding, UI/UX, websites and digital experiences."
+  >
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root {
+      --black: #080808;
+      --black-2: #101010;
+      --white: #ffffff;
+      --gray: #a5a5a5;
+      --gray-dark: #666666;
+      --light: #f4f4ef;
+      --accent: #d9ff3f;
+      --border: rgba(255,255,255,.12);
+      --max-width: 1400px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--black);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--black);
+    }
+
+    /* =========================
+       CUSTOM CURSOR
+    ========================= */
+
+    .cursor {
+      width: 14px;
+      height: 14px;
+      position: fixed;
+      border-radius: 50%;
+      background: var(--accent);
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+      transition:
+        width .25s ease,
+        height .25s ease;
+    }
+
+    .cursor.active {
+      width: 45px;
+      height: 45px;
+    }
+
+    /* =========================
+       PRELOADER
+    ========================= */
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition:
+        opacity .7s ease,
+        visibility .7s ease;
+    }
+
+    .loader.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-inner {
+      text-align: center;
+    }
+
+    .loader-logo {
+      font-size: clamp(35px, 7vw, 70px);
+      font-weight: 800;
+      letter-spacing: -4px;
+    }
+
+    .loader-logo span {
+      color: var(--accent);
+    }
+
+    .loader-line {
+      width: 180px;
+      height: 2px;
+      margin: 25px auto 0;
+      background: #222;
+      overflow: hidden;
+    }
+
+    .loader-line::after {
+      content: "";
+      display: block;
+      width: 50%;
+      height: 100%;
+      background: var(--accent);
+      animation: loading 1.3s ease infinite;
+    }
+
+    @keyframes loading {
+      from {
+        transform: translateX(-100%);
+      }
+      to {
+        transform: translateX(300%);
+      }
+    }
+
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    .navbar {
+      height: 82px;
+      padding: 0 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8,8,8,.82);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 35px;
+    }
+
+    .nav-links a {
+      position: relative;
+      color: #aaa;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color .3s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -7px;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width .3s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--white);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-contact {
+      color: var(--black) !important;
+      background: var(--accent);
+      padding: 11px 18px;
+      border-radius: 30px;
+    }
+
+    .nav-contact::after {
+      display: none;
+    }
+
+    .menu-btn {
+      width: 42px;
+      height: 42px;
+      display: none;
+      border: 1px solid #333;
+      border-radius: 50%;
+      background: transparent;
+      color: var(--white);
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      min-height: calc(100vh - 82px);
+      max-width: var(--max-width);
+      margin: auto;
+      padding: 80px 6%;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      gap: 50px;
+      position: relative;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin-bottom: 25px;
+    }
+
+    .hero h1 {
+      max-width: 900px;
+      font-size: clamp(55px, 8vw, 115px);
+      line-height: .9;
+      letter-spacing: -7px;
+      font-weight: 800;
+    }
+
+    .hero h1 span {
+      color: var(--accent);
+      display: block;
+    }
+
+    .hero-text {
+      max-width: 560px;
+      color: var(--gray);
+      margin: 35px 0;
+      font-size: 16px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 50px;
+      padding: 0 23px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 700;
+      transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        background .3s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--black);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(217,255,63,.2);
+    }
+
+    .btn-secondary {
+      border: 1px solid #3b3b3b;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    /* =========================
+       HERO ART
+    ========================= */
+
+    .hero-art {
+      min-height: 550px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .hero-glow {
+      width: 410px;
+      height: 410px;
+      border-radius: 50%;
+      position: absolute;
+      background: var(--accent);
+      filter: blur(1px);
+      animation: heroFloat 6s ease-in-out infinite;
+    }
+
+    .hero-ring {
+      width: 285px;
+      height: 285px;
+      border: 1px solid rgba(0,0,0,.5);
+      border-radius: 50%;
+      position: absolute;
+      z-index: 1;
+    }
+
+    .hero-card {
+      width: 275px;
+      height: 355px;
+      padding: 30px;
+      background: #111;
+      border: 1px solid #333;
+      position: relative;
+      z-index: 3;
+      transform: rotate(-8deg);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      box-shadow: 25px 35px 70px rgba(0,0,0,.55);
+      animation: cardFloat 5s ease-in-out infinite;
+    }
+
+    .card-top {
+      position: absolute;
+      top: 25px;
+      left: 25px;
+      color: #666;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .hero-card .mit {
+      font-size: 70px;
+      line-height: .9;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -5px;
+    }
+
+    .hero-card strong {
+      font-size: 28px;
+      line-height: 1;
+      margin-top: 5px;
+    }
+
+    .hero-card small {
+      color: #777;
+      margin-top: 15px;
+      font-size: 8px;
+      letter-spacing: 2px;
+    }
+
+    @keyframes heroFloat {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+
+      50% {
+        transform: translateY(-18px) scale(1.04);
+      }
+    }
+
+    @keyframes cardFloat {
+      0%, 100% {
+        transform: rotate(-8deg) translateY(0);
+      }
+
+      50% {
+        transform: rotate(-4deg) translateY(-15px);
+      }
+    }
+
+    /* =========================
+       MARQUEE
+    ========================= */
+
+    .marquee {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+      padding: 18px 0;
+      white-space: nowrap;
+      background: #0d0d0d;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 20s linear infinite;
+    }
+
+    .marquee-item {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      color: #666;
+      margin-right: 45px;
+    }
+
+    .marquee-item span {
+      color: var(--accent);
+      margin-right: 45px;
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    /* =========================
+       GENERAL SECTIONS
+    ========================= */
+
+    .section {
+      max-width: var(--max-width);
+      margin: auto;
+      padding: 130px 6%;
+    }
+
+    .section-label {
+      color: #666;
+      font-size: 10px;
+      letter-spacing: 3px;
+      font-weight: 600;
+      margin-bottom: 60px;
+    }
+
+    /* =========================
+       ABOUT
+    ========================= */
+
+    .about {
+      background: var(--light);
+      color: var(--black);
+      max-width: none;
+    }
+
+    .about-inner {
+      max-width: var(--max-width);
+      margin: auto;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+    }
+
+    .about h2,
+    .services h2,
+    .work h2 {
+      font-size: clamp(45px, 6vw, 80px);
+      line-height: .95;
+      letter-spacing: -5px;
+      font-weight: 800;
+    }
+
+    .about h2 span,
+    .services h2 span,
+    .work h2 span {
+      color: #777;
+    }
+
+    .about-content p {
+      max-width: 540px;
+      color: #666;
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    .text-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid var(--black);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    /* =========================
+       SERVICES
+    ========================= */
+
+    .services {
+      background: var(--black);
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      margin-top: 80px;
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
+    }
+
+    .service-card {
+      min-height: 320px;
+      padding: 30px 25px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition:
+        background .35s ease,
+        transform .35s ease;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--accent);
+      filter: blur(60px);
+      opacity: 0;
+      right: -40px;
+      bottom: -40px;
+      transition: opacity .4s ease;
+    }
+
+    .service-card:hover {
+      background: #121212;
+      transform: translateY(-5px);
+    }
+
+    .service-card:hover::before {
+      opacity: .18;
+    }
+
+    .service-number {
+      color: #555;
+      font-size: 11px;
+    }
+
+    .service-icon {
+      width: 55px;
+      height: 55px;
+      margin: 50px 0 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #333;
+      border-radius: 50%;
+      color: var(--accent);
+      font-size: 22px;
+      transition: .3s ease;
+    }
+
+    .service-card:hover .service-icon {
+      background: var(--accent);
+      color: var(--black);
+      border-color: var(--accent);
+      transform: rotate(15deg);
+    }
+
+    .service-card h3 {
+      font-size: 19px;
+      margin-bottom: 12px;
+    }
+
+    .service-card p {
+      color: #707070;
+      font-size: 13px;
+      max-width: 250px;
+    }
+
+    /* =========================
+       WORK
+    ========================= */
+
+    .work {
+      max-width: none;
+      background: #111;
+    }
+
+    .work-inner {
+      max-width: var(--max-width);
+      margin: auto;
+    }
+
+    .work-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 30px;
+    }
+
+    .work-heading p {
+      max-width: 260px;
+      color: #777;
+      font-size: 13px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 75px;
+    }
+
+    .project-large {
+      grid-row: span 2;
+    }
+
+    .project-image {
+      height: 400px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 20px;
+    }
+
+    .project-large .project-image {
+      height: 660px;
+    }
+
+    .project-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        transparent 40%,
+        rgba(255,255,255,.12)
+      );
+      opacity: .5;
+    }
+
+    .project-number {
+      position: relative;
+      z-index: 2;
+      font-size: 11px;
+      background: rgba(0,0,0,.45);
+      padding: 7px 10px;
+      backdrop-filter: blur(10px);
+    }
+
+    .gradient-one {
+      background:
+        radial-gradient(
+          circle at 25% 25%,
+          #d9ff3f 0,
+          transparent 25%
+        ),
+        linear-gradient(
+          135deg,
+          #6b00ff,
+          #090909 70%
+        );
+    }
+
+    .gradient-two {
+      background:
+        linear-gradient(
+          135deg,
+          #ff3cac,
+          #784ba0 50%,
+          #2b86c5
+        );
+    }
+
+    .gradient-three {
+      background:
+        radial-gradient(
+          circle at 65% 30%,
+          #ffe600,
+          transparent 25%
+        ),
+        linear-gradient(
+          135deg,
+          #ff512f,
+          #dd2476
+        );
+    }
+
+    .project-image:hover {
+      transform: scale(.985);
+    }
+
+    .project-info {
+      padding: 18px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .project-info h3 {
+      font-size: 19px;
+    }
+
+    .project-info p {
+      color: #666;
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    .project-arrow {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #333;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      transition: .3s ease;
+    }
+
+    .project:hover .project-arrow {
+      background: var(--accent);
+      color: var(--black);
+      transform: rotate(45deg);
+    }
+
+    /* =========================
+       PROCESS
+    ========================= */
+
+    .process {
+      background: var(--light);
+      color: var(--black);
+      max-width: none;
+    }
+
+    .process-inner {
+      max-width: var(--max-width);
+      margin: auto;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 100px;
+    }
+
+    .process-title {
+      font-size: clamp(45px, 6vw, 80px);
+      line-height: .95;
+      letter-spacing: -5px;
+      font-weight: 800;
+    }
+
+    .process-list {
+      border-top: 1px solid #ccc;
+    }
+
+    .process-item {
+      padding: 28px 0;
+      border-bottom: 1px solid #ccc;
+      display: grid;
+      grid-template-columns: 60px 1fr 30px;
+      align-items: start;
+      gap: 20px;
+      cursor: pointer;
+    }
+
+    .process-number {
+      color: #999;
+      font-size: 11px;
+    }
+
+    .process-item h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .process-item p {
+      color: #777;
+      font-size: 13px;
+      max-width: 550px;
+    }
+
+    .process-plus {
+      font-size: 20px;
+      transition: transform .3s ease;
+    }
+
+    .process-item:hover .process-plus {
+      transform: rotate(45deg);
+    }
+
+    /* =========================
+       CTA
+    ========================= */
+
+    .cta {
+      max-width: none;
+      background: var(--accent);
+      color: var(--black);
+      text-align: center;
+    }
+
+    .cta-inner {
+      max-width: var(--max-width);
+      margin: auto;
+    }
+
+    .cta .eyebrow {
+      color: var(--black);
+    }
+
+    .cta h2 {
+      font-size: clamp(50px, 8vw, 110px);
+      line-height: .9;
+      letter-spacing: -7px;
+      font-weight: 800;
+      margin-bottom: 50px;
+    }
+
+    .cta h2 span {
+      text-decoration: underline;
+    }
+
+    .btn-dark {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .btn-dark:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px rgba(0,0,0,.2);
+    }
+
+    /* =========================
+       CONTACT
+    ========================= */
+
+    .contact {
+      background: var(--black);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+    }
+
+    .contact h2 {
+      font-size: clamp(45px,6vw,75px);
+      line-height: .95;
+      letter-spacing: -5px;
+    }
+
+    .contact h2 span {
+      color: var(--accent);
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .contact-detail {
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-detail small {
+      display: block;
+      color: #555;
+      font-size: 9px;
+      letter-spacing: 2px;
+      margin-bottom: 7px;
+    }
+
+    .contact-detail a {
+      font-size: 17px;
+      color: #ddd;
+    }
+
+    .contact-detail a:hover {
+      color: var(--accent);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding: 40px 6%;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .footer-logo {
+      font-size: 20px;
+    }
+
+    footer p {
+      color: #555;
+      font-size: 11px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 20px;
+    }
+
+    .socials a {
+      color: #777;
+      font-size: 11px;
+      transition: color .3s ease;
+    }
+
+    .socials a:hover {
+      color: var(--accent);
+    }
+
+    /* =========================
+       SCROLL REVEAL
+    ========================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition:
+        opacity .8s ease,
+        transform .8s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =========================
+       TABLET
+    ========================= */
+
+    @media (max-width: 1000px) {
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 80px;
+      }
+
+      .hero-art {
+        min-height: 430px;
+      }
+
+      .about-grid,
+      .contact-grid {
+        gap: 60px;
+      }
+
+      .service-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .process-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 700px) {
+
+      .cursor {
+        display: none;
+      }
+
+      .navbar {
+        height: 72px;
+        padding: 0 5%;
+      }
+
+      .menu-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 72px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 72px);
+        padding: 40px 7%;
+        background: #0a0a0a;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 25px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        font-size: 28px;
+        letter-spacing: -1px;
+      }
+
+      .nav-contact {
+        font-size: 14px !important;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 90px 6% 60px;
+      }
+
+      .hero h1 {
+        font-size: clamp(52px, 15vw, 80px);
+        letter-spacing: -5px;
+      }
+
+      .hero-text {
+        font-size: 14px;
+      }
+
+      .hero-art {
+        min-height: 360px;
+        transform: scale(.8);
+        margin: -20px 0;
+      }
+
+      .hero-glow {
+        width: 340px;
+        height: 340px;
+      }
+
+      .hero-card {
+        width: 240px;
+        height: 310px;
+      }
+
+      .section {
+        padding: 90px 6%;
+      }
+
+      .section-label {
+        margin-bottom: 40px;
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+      }
+
+      .about h2,
+      .services h2,
+      .work h2,
+      .process-title,
+      .contact h2 {
+        letter-spacing: -3px;
+      }
+
+      .service-grid {
+        grid-template-columns: 1fr;
+        margin-top: 55px;
+      }
+
+      .service-card {
+        min-height: 280px;
+      }
+
+      .work-heading {
+        display: block;
+      }
+
+      .work-heading p {
+        margin-top: 25px;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+        margin-top: 50px;
+      }
+
+      .project-large {
+        grid-row: auto;
+      }
+
+      .project-image,
+      .project-large .project-image {
+        height: 360px;
+      }
+
+      .process-item {
+        grid-template-columns: 40px 1fr 20px;
+        gap: 10px;
+      }
+
+      .cta h2 {
+        letter-spacing: -4px;
+      }
+
+      footer {
+        padding: 35px 6%;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    /* =========================
+       SMALL MOBILE
+    ========================= */
+
+    @media (max-width: 420px) {
+
+      .hero h1 {
+        font-size: 50px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .hero-art {
+        transform: scale(.7);
+        margin-left: -25px;
+        margin-right: -25px;
+      }
+
+      .project-image,
+      .project-large .project-image {
+        height: 300px;
+      }
+
+      .socials {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PRELOADER -->
+  <div class="loader" id="loader">
+    <div class="loader-inner">
+      <div class="loader-logo">
+        MIT<span>DISINIG</span>
+      </div>
+      <div class="loader-line"></div>
+    </div>
+  </div>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor" id="cursor"></div>
+
+  <!-- NAVIGATION -->
+  <header class="navbar">
+
+    <a href="#home" class="logo">
+      MIT<span>DISINIG</span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+      <a href="#contact" class="nav-contact">Start Project ↗</a>
+    </nav>
+
+    <button
+      class="menu-btn"
+      id="menuBtn"
+      aria-label="Open navigation"
+    >
+      ☰
+    </button>
+
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+      <div class="hero-content reveal">
+
+        <p class="eyebrow">
+          CREATIVE DESIGN STUDIO
+        </p>
+
+        <h1>
+          We create
+          <span>bold ideas</span>
+          into reality.
+        </h1>
+
+        <p class="hero-text">
+          MIT DISINIG is a modern creative studio focused on branding,
+          digital experiences, UI/UX and innovative visual design.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a href="#work" class="btn btn-primary">
+            Explore Work
+            <span>→</span>
+          </a>
+
+          <a href="#contact" class="btn btn-secondary">
+            Let's Talk
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="hero-art">
+
+        <div class="hero-glow"></div>
+        <div class="hero-ring"></div>
+
+        <div class="hero-card">
+
+          <span class="card-top">
+            CREATIVE / 2026
+          </span>
+
+          <span class="mit">
+            MIT
+          </span>
+
+          <strong>
+            DISINIG
+          </strong>
+
+          <small>
+            CREATE • INSPIRE • BUILD
+          </small>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee">
+
+      <div class="marquee-track">
+
+        <div class="marquee-item">
+          BRANDING <span>✦</span>
+        </div>
+
+        <div class="marquee-item">
+          UI / UX <span>✦</span>
+        </div>
+
+        <div class="marquee-item">
+          WEB DESIGN <span>✦</span>
+        </div>
+
+        <div class="marquee-item">
+          CREATIVE DIRECTION <span>✦</span>
+        </div>
+
+        <div class="marquee-item">
+          DIGITAL EXPERIENCE <span>✦</span>
+        </div>
+
+        <div class="marquee-item">
+          BRANDING <span>✦</span>
+        </div>
+
+        <div class="marquee-item">
+          UI / UX <span>✦</span>
+        </div>
+
+        <div class="marquee-item">
+          WEB DESIGN <span>✦</span>
+        </div>
+
+        <div class="marquee-item">
+          CREATIVE DIRECTION <span>✦</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ABOUT -->
+    <section class="about section" id="about">
+
+      <div class="about-inner">
+
+        <div class="section-label">
+          01 / ABOUT
+        </div>
+
+        <div class="about-grid">
+
+          <h2 class="reveal">
+            Design that makes people
+            <span>feel something.</span>
+          </h2>
+
+          <div class="about-content reveal">
+
+            <p>
+              We believe great design is more than beautiful visuals.
+              It's about creating meaningful experiences that connect
+              brands with people.
+            </p>
+
+            <p>
+              From the first idea to the final pixel, MIT DISINIG
+              combines creativity, strategy and technology to build
+              memorable digital experiences.
+            </p>
+
+            <a href="#contact" class="text-link">
+              Start a project ↗
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services section" id="services">
+
+      <div class="section-label">
+        02 / SERVICES
+      </div>
+
+      <h2 class="reveal">
+        What we <span>do.</span>
+      </h2>
+
+      <div class="service-grid">
+
+        <article class="service-card reveal">
+
+          <div class="service-number">
+            01
+          </div>
+
+          <div class="service-icon">
+            ✦
+          </div>
+
+          <h3>
+            Brand Identity
+          </h3>
+
+          <p>
+            Strong visual identities that make your brand
+            recognizable and unforgettable.
+          </p>
+
+        </article>
+
+        <article class="service-card reveal">
+
+          <div class="service-number">
+            02
+          </div>
+
+          <div class="service-icon">
+            ◉
+          </div>
+
+          <h3>
+            UI / UX Design
+          </h3>
+
+          <p>
+            Beautiful, intuitive interfaces designed around
+            real people and real experiences.
+          </p>
+
+        </article>
+
+        <article class="service-card reveal">
+
+          <div class="service-number">
+            03
+          </div>
+
+          <div class="service-icon">
+            ⌁
+          </div>
+
+          <h3>
+            Web Design
+          </h3>
+
+          <p>
+            Modern responsive websites that look great and
+            perform beautifully on every device.
+          </p>
+
+        </article>
+
+        <article class="service-card reveal">
+
+          <div class="service-number">
+            04
+          </div>
+
+          <div class="service-icon">
+            ↗
+          </div>
+
+          <h3>
+            Creative Direction
+          </h3>
+
+          <p>
+            Strategic creative direction that transforms
+            ideas into powerful visual stories.
+          </p>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <!-- WORK -->
+    <section class="work section" id="work">
+
+      <div class="work-inner">
+
+        <div class="section-label">
+          03 / SELECTED WORK
+        </div>
+
+        <div class="work-heading">
+
+          <h2 class="reveal">
+            Ideas we've <span>built.</span>
+          </h2>
+
+          <p>
+            Selected creative projects from MIT DISINIG.
+          </p>
+
+        </div>
+
+        <div class="project-grid">
+
+          <article class="project project-large reveal">
+
+            <div class="project-image gradient-one">
+              <span class="project-number">
+                01
+              </span>
+            </div>
+
+            <div class="project-info">
+
+              <div>
+                <h3>
+                  Future / Form
+                </h3>
+
+                <p>
+                  Brand Identity · Digital
+                </p>
+              </div>
+
+              <span class="project-arrow">
+                ↗
+              </span>
+
+            </div>
+
+          </article>
+
+          <article class="project reveal">
+
+            <div class="project-image gradient-two">
+              <span class="project-number">
+                02
+              </span>
+            </div>
+
+            <div class="project-info">
+
+              <div>
+                <h3>
+                  Mono Studio
+                </h3>
+
+                <p>
+                  Web Design · UI/UX
+                </p>
+              </div>
+
+              <span class="project-arrow">
+                ↗
+              </span>
+
+            </div>
+
+          </article>
+
+          <article class="project reveal">
+
+            <div class="project-image gradient-three">
+              <span class="project-number">
+                03
+              </span>
+            </div>
+
+            <div class="project-info">
+
+              <div>
+                <h3>
+                  Abstract
+                </h3>
+
+                <p>
+                  Art Direction · Branding
+                </p>
+              </div>
+
+              <span class="project-arrow">
+                ↗
+              </span>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process section" id="process">
+
+      <div class="process-inner">
+
+        <div class="section-label">
+          04 / PROCESS
+        </div>
+
+        <div class="process-grid">
+
+          <h2 class="process-title reveal">
+            How we
+            <br>
+            make
+            <br>
+            things.
+          </h2>
+
+          <div class="process-list">
+
+            <div class="process-item reveal">
+
+              <span class="process-number">
+                01
+              </span>
+
+              <div>
+                <h3>
+                  Discover
+                </h3>
+
+                <p>
+                  We learn about your brand, goals, audience
+                  and the problem we're solving.
+                </p>
+              </div>
+
+              <span class="process-plus">
+                +
+              </span>
+
+            </div>
+
+            <div class="process-item reveal">
+
+              <span class="process-number">
+                02
+              </span>
+
+              <div>
+                <h3>
+                  Strategy
+                </h3>
+
+                <p>
+                  We turn research and ideas into a clear
+                  creative direction.
+                </p>
+              </div>
+
+              <span class="process-plus">
+                +
+              </span>
+
+            </div>
+
+            <div class="process-item reveal">
+
+              <span class="process-number">
+                03
+              </span>
+
+              <div>
+                <h3>
+                  Design
+                </h3>
+
+                <p>
+                  We explore concepts, refine the details and
+                  create the final visual experience.
+                </p>
+              </div>
+
+              <span class="process-plus">
+                +
+              </span>
+
+            </div>
+
+            <div class="process-item reveal">
+
+              <span class="process-number">
+                04
+              </span>
+
+              <div>
+                <h3>
+                  Launch
+                </h3>
+
+                <p>
+                  We bring everything together and launch
+                  something built to make an impact.
+                </p>
+              </div>
+
+              <span class="process-plus">
+                +
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- CTA -->
+    <section class="cta section">
+
+      <div class="cta-inner reveal">
+
+        <p class="eyebrow">
+          HAVE A PROJECT?
+        </p>
+
+        <h2>
+          Let's make something
+          <span>remarkable.</span>
+        </h2>
+
+        <a
+          href="#contact"
+          class="btn btn-dark"
+        >
+          Start a Project ↗
+        </a>
+
+      </div>
+
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact section" id="contact">
+
+      <div class="section-label">
+        05 / CONTACT
+      </div>
+
+      <div class="contact-grid">
+
+        <div class="reveal">
+
+          <p class="eyebrow">
+            LET'S WORK TOGETHER
+          </p>
+
+          <h2>
+            Have an idea?
+            <span>Let's talk.</span>
+          </h2>
+
+        </div>
+
+        <div class="contact-details reveal">
+
+          <div class="contact-detail">
+
+            <small>
+              EMAIL
+            </small>
+
+            <a href="mailto:hello@mitdisinig.com">
+              hello@mitdisinig.com
+            </a>
+
+          </div>
+
+          <div class="contact-detail">
+
+            <small>
+              PHONE
+            </small>
+
+            <a href="tel:+919876543210">
+              +91 98765 43210
+            </a>
+
+          </div>
+
+          <div class="contact-detail">
+
+            <small>
+              LOCATION
+            </small>
+
+            <a href="#">
+              Kerala, India
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-logo">
+      MIT<span>DISINIG</span>
+    </div>
+
+    <p>
+      © <span id="year"></span>
+      MIT DISINIG. All rights reserved.
+    </p>
+
+    <div class="socials">
+
+      <a href="#" aria-label="Instagram">
+        Instagram
+      </a>
+
+      <a href="#" aria-label="Behance">
+        Behance
+      </a>
+
+      <a href="#" aria-label="Dribbble">
+        Dribbble
+      </a>
+
+    </div>
+
+  </footer>
+
+  <script>
+
+    /* =========================
+       PAGE LOADER
+    ========================= */
+
+    window.addEventListener("load", () => {
+
+      const loader = document.getElementById("loader");
+
+      setTimeout(() => {
+        loader.classList.add("hide");
+      }, 700);
+
+    });
+
+
+    /* =========================
+       MOBILE MENU
+    ========================= */
+
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+
+      navLinks.classList.toggle("open");
+      document.body.classList.toggle("menu-open");
+
+      if (navLinks.classList.contains("open")) {
+        menuBtn.textContent = "✕";
+      } else {
+        menuBtn.textContent = "☰";
+      }
+
+    });
+
+
+    /* =========================
+       CLOSE MENU ON LINK CLICK
+    ========================= */
+
+    document.querySelectorAll(".nav-links a").forEach(link => {
+
+      link.addEventListener("click", () => {
+
+        navLinks.classList.remove("open");
+        document.body.classList.remove("menu-open");
+
+        menuBtn.textContent = "☰";
+
+      });
+
+    });
+
+
+    /* =========================
+       ACTIVE NAVIGATION
+    ========================= */
+
+    const sections = document.querySelectorAll("section[id]");
+    const navItems = document.querySelectorAll(".nav-links a");
+
+    window.addEventListener("scroll", () => {
+
+      let current = "";
+
+      sections.forEach(section => {
+
+        const sectionTop = section.offsetTop - 150;
+        const sectionHeight = section.offsetHeight;
+
+        if (
+          window.scrollY >= sectionTop &&
+          window.scrollY < sectionTop + sectionHeight
+        ) {
+          current = section.getAttribute("id");
+        }
+
+      });
+
+      navItems.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (
+          link.getAttribute("href") === "#" + current
+        ) {
+          link.classList.add("active");
+        }
+
+      });
+
+    });
+
+
+    /* =========================
+       SCROLL REVEAL
+    ========================= */
+
+    const revealElements =
+      document.querySelectorAll(".reveal");
+
+    const revealObserver =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(entry => {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add("show");
+
+              revealObserver.unobserve(
+                entry.target
+              );
+
+            }
+
+          });
+
+        },
+        {
+          threshold: 0.12
+        }
+      );
+
+    revealElements.forEach(element => {
+      revealObserver.observe(element);
+    });
+
+
+    /* =========================
+       CUSTOM CURSOR
+    ========================= */
+
+    const cursor =
+      document.getElementById("cursor");
+
+    if (window.matchMedia("(pointer:fine)").matches) {
+
+      document.addEventListener("mousemove", event => {
+
+        cursor.style.left =
+          event.clientX + "px";
+
+        cursor.style.top =
+          event.clientY + "px";
+
+      });
+
+      document
+        .querySelectorAll("a, button, .project, .service-card")
+        .forEach(element => {
+
+          element.addEventListener("mouseenter", () => {
+            cursor.classList.add("active");
+          });
+
+          element.addEventListener("mouseleave", () => {
+            cursor.classList.remove("active");
+          });
+
+        });
+
+    }
+
+
+    /* =========================
+       CURRENT YEAR
+    ========================= */
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+
+    /* =========================
+       SMOOTH BUTTON FEEDBACK
+    ========================= */
+
+    document.querySelectorAll(".btn").forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        button.style.transform =
+          "scale(.96)";
+
+        setTimeout(() => {
+
+          button.style.transform = "";
+
+        }, 150);
+
+      });
+
+    });
+
+  </script>
+
+</body>
+</html>
+```
