@@ -27,6 +27,14 @@
       font-display: swap;
     }
 
+    @font-face {
+      font-family: "Urban Jungle";
+      src: url("./urban-jungle.ttf") format("truetype");
+      font-weight: 400 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
       --black: #080808;
       --black-2: #101010;
@@ -53,9 +61,8 @@
       font-family: "Tenada", "Inter", sans-serif;
       background-color: var(--black);
       background-image:
-        radial-gradient(ellipse at 72% 22%, rgba(217,255,63,.22) 0, transparent 20%),
-        repeating-radial-gradient(ellipse at 68% 28%, transparent 0 18px, rgba(217,255,63,.16) 19px 21px, transparent 22px 48px),
-        linear-gradient(115deg, #080808 0%, #101510 48%, #080808 100%);
+        linear-gradient(rgba(0,0,0,.58), rgba(0,0,0,.58)),
+        url("https://chatgpt.com/backend-api/estuary/content?id=file_00000000d1a482089c124a1cc8a20a19&ts=496493&p=fs&cid=1&sig=e24e6c11d5c8c7da9be336986b64923c6166c68c609ee0d92d9172ad1d5347e3&v=0");
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
@@ -164,6 +171,122 @@
       animation: loading 1.3s ease infinite;
     }
 
+    .inauguration-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0,0,0,.72);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .45s ease, visibility .45s ease;
+    }
+
+    .inauguration-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .inauguration-panel {
+      width: min(100%, 560px);
+      min-height: 540px;
+      padding: clamp(32px, 6vw, 64px);
+      position: relative;
+      overflow: hidden;
+      background: #0b0d0a;
+      border: 1px solid rgba(217,255,63,.45);
+      box-shadow: 0 25px 80px rgba(0,0,0,.6);
+      transform: translateY(24px) scale(.96);
+      transition: transform .45s ease;
+    }
+
+    .inauguration-modal.is-open .inauguration-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .inauguration-panel::before {
+      content: "";
+      width: 220px;
+      height: 220px;
+      position: absolute;
+      top: -100px;
+      right: -70px;
+      border: 1px solid rgba(217,255,63,.3);
+      border-radius: 50%;
+      z-index: 1;
+      box-shadow: 0 0 0 24px rgba(217,255,63,.04), 0 0 0 48px rgba(217,255,63,.04);
+    }
+
+    .inauguration-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.58);
+      z-index: 1;
+    }
+
+    .inauguration-image {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      object-fit: cover;
+    }
+
+    .inauguration-panel > *:not(.inauguration-image) {
+      position: relative;
+      z-index: 2;
+    }
+
+    .inauguration-kicker {
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .inauguration-panel h2 {
+      max-width: 420px;
+      margin: 20px 0 14px;
+      font-size: clamp(38px, 7vw, 72px);
+      line-height: .95;
+      letter-spacing: -3px;
+    }
+
+    .inauguration-panel h2 span {
+      color: var(--accent);
+    }
+
+    .inauguration-panel p {
+      max-width: 390px;
+      color: var(--gray);
+      font-size: 15px;
+    }
+
+    .inauguration-close {
+      margin-top: 30px;
+      padding: 13px 22px;
+      border: 1px solid var(--accent);
+      border-radius: 30px;
+      background: var(--accent);
+      color: var(--black);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .inauguration-close:hover {
+      background: var(--white);
+      border-color: var(--white);
+    }
+
     @keyframes loading {
       from {
         transform: translateX(-100%);
@@ -259,25 +382,122 @@
       font-size: 20px;
     }
 
+    /* Navbar Section Style */
+    .navbar-wrapper {
+      background-color: #0b111e;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    /* Orange Logo Box with Layers Icon */
+    .logo-box {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, #fcd34d, #f59e0b);
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    .brand-text h1 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+    .brand-text span {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #f59e0b;
+      letter-spacing: 2px;
+      display: block;
+    }
+
+    /* Available for New Projects Badge */
+    .status-badge {
+      border: 1px solid #f59e0b;
+      color: #f59e0b;
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981; /* Green glowing dot */
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+    }
+
     /* =========================
        HERO
     ========================= */
 
     .hero {
-      min-height: calc(100vh - 82px);
-      max-width: var(--max-width);
-      margin: auto;
-      padding: 80px 6%;
+      min-height: 100vh;
+      max-width: none;
+      margin: 0;
+      padding: 0;
       display: grid;
       grid-template-columns: 1.1fr .9fr;
       align-items: center;
       gap: 50px;
       position: relative;
+      overflow: hidden;
+      background: #0a0a15;
+      background-image: url("image.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    /* Hero background overlay */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(10, 10, 21, 0.75) 0%, rgba(30, 10, 50, 0.65) 50%, rgba(10, 10, 21, 0.75) 100%);
+      z-index: 1;
+    }
+
+    /* Animated background gradient blob (left side) */
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(200, 100, 255, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      bottom: -100px;
+      left: -150px;
+      z-index: 0;
+      animation: blobMove 8s ease-in-out infinite;
     }
 
     .hero-content {
       position: relative;
       z-index: 3;
+      padding: 100px 6%;
+      animation: contentFadeInUp 0.8s ease-out 0.2s both;
     }
 
     .eyebrow {
@@ -286,32 +506,41 @@
       font-weight: 700;
       letter-spacing: 3px;
       margin-bottom: 25px;
+      text-transform: uppercase;
+      animation: fadeInDown 0.6s ease-out 0.3s both;
     }
 
     .hero h1 {
       max-width: 900px;
-      font-size: clamp(55px, 8vw, 115px);
-      line-height: .9;
-      letter-spacing: -7px;
+      font-size: clamp(50px, 9vw, 120px);
+      line-height: 0.95;
+      letter-spacing: -4px;
       font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 30px;
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+      font-family: "Urban Jungle", sans-serif;
     }
 
     .hero h1 span {
-      color: var(--accent);
+      color: #ffffff;
       display: block;
     }
 
     .hero-text {
       max-width: 560px;
-      color: var(--gray);
-      margin: 35px 0;
+      color: #c0c0c0;
+      margin: 30px 0 45px;
       font-size: 16px;
+      line-height: 1.6;
+      animation: fadeInUp 0.8s ease-out 0.5s both;
     }
 
     .hero-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 13px;
+      gap: 20px;
+      animation: fadeInUp 0.8s ease-out 0.6s both;
     }
 
     .btn {
@@ -319,35 +548,44 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
-      min-height: 50px;
-      padding: 0 23px;
+      min-height: 54px;
+      padding: 0 32px;
       border-radius: 50px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 700;
+      letter-spacing: 0.5px;
       transition:
         transform .3s ease,
         box-shadow .3s ease,
-        background .3s ease;
+        background .3s ease,
+        border-color .3s ease;
+      cursor: pointer;
+      border: none;
     }
 
     .btn-primary {
       background: var(--accent);
       color: var(--black);
+      box-shadow: 0 0 30px rgba(217, 255, 63, 0.3);
     }
 
     .btn-primary:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 35px rgba(217,255,63,.2);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 0 50px rgba(217, 255, 63, 0.5), 0 15px 35px rgba(217, 255, 63, 0.25);
     }
 
     .btn-secondary {
-      border: 1px solid #3b3b3b;
+      border: 1px solid #555;
+      background: transparent;
+      color: #ffffff;
     }
 
     .btn-secondary:hover {
       border-color: var(--accent);
       color: var(--accent);
-      transform: translateY(-4px);
+      background: rgba(217, 255, 63, 0.08);
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(217, 255, 63, 0.2);
     }
 
     /* =========================
@@ -355,103 +593,293 @@
     ========================= */
 
     .hero-art {
-      min-height: 550px;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
+      z-index: 2;
+      padding-right: 6%;
     }
 
+    /* Large neon lime circular glow background */
     .hero-glow {
-      width: 410px;
-      height: 410px;
+      width: 420px;
+      height: 420px;
       border-radius: 50%;
       position: absolute;
-      background: var(--accent);
-      filter: blur(1px);
-      animation: heroFloat 6s ease-in-out infinite;
+      background: radial-gradient(circle at 30% 30%, rgba(217, 255, 63, 0.4), transparent 70%);
+      filter: blur(80px);
+      animation: glowPulse 4s ease-in-out infinite;
+      z-index: 0;
     }
 
+    /* Circular orbit/ring around glow */
     .hero-ring {
-      width: 285px;
-      height: 285px;
-      border: 1px solid rgba(0,0,0,.5);
+      width: 380px;
+      height: 380px;
+      border: 1px solid rgba(217, 255, 63, 0.3);
       border-radius: 50%;
       position: absolute;
       z-index: 1;
+      animation: orbitRotate 20s linear infinite;
+      box-shadow: inset 0 0 30px rgba(217, 255, 63, 0.1);
     }
 
+    /* Small glowing particles around the composition */
+    .hero-glow::before {
+      content: "";
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      top: -20px;
+      left: 30%;
+      box-shadow: 0 0 15px var(--accent);
+      animation: floatParticle 5s ease-in-out infinite;
+    }
+
+    .hero-glow::after {
+      content: "";
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: rgba(100, 200, 255, 0.8);
+      border-radius: 50%;
+      bottom: 40px;
+      right: 20px;
+      box-shadow: 0 0 12px rgba(100, 200, 255, 0.6);
+      animation: floatParticle2 6s ease-in-out infinite;
+    }
+
+    /* Premium black card with logo */
     .hero-card {
-      width: 275px;
-      height: 355px;
-      padding: 30px;
-      background-color: #06062b;
-      background-image: url("https://i.pinimg.com/736x/fb/65/bb/fb65bb8b36b570ca9be3bb99c8c020a1.jpg");
-      background-position: center;
-      background-size: 100% 128%;
-      background-repeat: no-repeat;
-      border: 1px solid #333;
+      width: 300px;
+      height: 380px;
+      padding: 40px;
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a1a2e 100%);
+      border: 1px solid rgba(217, 255, 63, 0.15);
       position: relative;
       z-index: 3;
-      transform: rotate(-8deg);
+      transform: rotate(-5deg);
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      box-shadow: 25px 35px 70px rgba(0,0,0,.55);
-      animation: cardFloat 5s ease-in-out infinite;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.8),
+        inset 0 0 30px rgba(217, 255, 63, 0.05);
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+      animation: cardFloatNew 5s ease-in-out infinite;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .hero-card > * {
-      visibility: hidden;
+    .hero-card:hover {
+      transform: rotate(-3deg) translateY(-15px);
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.9),
+        inset 0 0 40px rgba(217, 255, 63, 0.1),
+        0 0 30px rgba(217, 255, 63, 0.2);
     }
 
     .card-top {
       position: absolute;
-      top: 25px;
-      left: 25px;
+      top: 20px;
+      left: 20px;
       color: #666;
       font-size: 10px;
       letter-spacing: 2px;
+      opacity: 0.6;
     }
 
     .hero-card .mit {
-      font-size: 70px;
-      line-height: .9;
+      font-size: 80px;
+      line-height: 0.9;
       font-weight: 800;
-      color: var(--accent);
-      letter-spacing: -5px;
+      color: #ffffff;
+      letter-spacing: -3px;
+      text-align: center;
     }
 
     .hero-card strong {
-      font-size: 28px;
+      font-size: 32px;
       line-height: 1;
-      margin-top: 5px;
+      margin-top: 8px;
+      color: #ffffff;
     }
 
     .hero-card small {
-      color: #777;
-      margin-top: 15px;
-      font-size: 8px;
+      color: var(--accent);
+      margin-top: 18px;
+      font-size: 9px;
       letter-spacing: 2px;
+      opacity: 0.8;
     }
 
-    @keyframes heroFloat {
-      0%, 100% {
-        transform: translateY(0) scale(1);
-      }
+    /* Decorative dots pattern (top right) */
+    .hero::before + .hero-content::before {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      top: 80px;
+      right: -100px;
+      background-image:
+        radial-gradient(circle, rgba(217, 255, 63, 0.2) 2px, transparent 2px);
+      background-size: 30px 30px;
+      opacity: 0.6;
+      z-index: -1;
+    }
 
-      50% {
-        transform: translateY(-18px) scale(1.04);
+    /* Background decorative blob (right side) */
+    .hero-art::before {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(100, 200, 255, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      top: -150px;
+      right: -200px;
+      z-index: 0;
+      animation: blobMoveRight 10s ease-in-out infinite;
+    }
+
+    /* Additional decorative abstract shapes */
+    .hero-art::after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(200, 100, 255, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      bottom: -50px;
+      right: 100px;
+      z-index: 0;
+      animation: blobPulse 6s ease-in-out infinite;
+    }
+
+    /* Animations */
+    @keyframes contentFadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    @keyframes cardFloat {
-      0%, 100% {
-        transform: rotate(-8deg) translateY(0);
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
       }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes glowPulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
       50% {
-        transform: rotate(-4deg) translateY(-15px);
+        transform: scale(1.1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes orbitRotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes floatParticle {
+      0%, 100% {
+        transform: translate(0, 0);
+      }
+      50% {
+        transform: translate(-15px, -15px);
+      }
+    }
+
+    @keyframes floatParticle2 {
+      0%, 100% {
+        transform: translate(0, 0);
+      }
+      50% {
+        transform: translate(10px, 12px);
+      }
+    }
+
+    @keyframes cardFloatNew {
+      0%, 100% {
+        transform: rotate(-5deg) translateY(0);
+      }
+      50% {
+        transform: rotate(-4deg) translateY(-18px);
+      }
+    }
+
+    @keyframes blobMove {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      25% {
+        transform: translate(30px, -50px) scale(1.05);
+      }
+      50% {
+        transform: translate(60px, 0) scale(1.1);
+      }
+      75% {
+        transform: translate(30px, 50px) scale(1.05);
+      }
+    }
+
+    @keyframes blobMoveRight {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+      }
+      25% {
+        transform: translate(-40px, 60px) scale(1.05);
+      }
+      50% {
+        transform: translate(-80px, 0) scale(1.1);
+      }
+      75% {
+        transform: translate(-40px, -60px) scale(1.05);
+      }
+    }
+
+    @keyframes blobPulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scale(1.15);
+        opacity: 0.8;
       }
     }
 
@@ -741,6 +1169,13 @@
         );
     }
 
+    .project-image-photo {
+      background-image: url("https://chatgpt.com/backend-api/estuary/content?id=file_00000000d1a482089c124a1cc8a20a19&ts=496493&p=fs&cid=1&sig=e24e6c11d5c8c7da9be336986b64923c6166c68c609ee0d92d9172ad1d5347e3&v=0");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
     .gradient-two {
       background:
         linear-gradient(
@@ -966,6 +1401,157 @@
     }
 
     /* =========================
+       GET IN TOUCH
+    ========================= */
+
+    .get-in-touch {
+      background: #121826;
+      padding: 120px 6%;
+      max-width: none;
+    }
+
+    .get-in-touch-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+    }
+
+    .get-in-touch-header {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .get-in-touch-header h2 {
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .get-in-touch-header p {
+      font-size: clamp(16px, 3vw, 22px);
+      color: #b0b0b0;
+      max-width: 700px;
+      margin: 0 auto;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    .highlight-accent {
+      position: relative;
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .highlight-accent::after {
+      content: "";
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #ff9500, #ffb347);
+      border-radius: 2px;
+    }
+
+    .get-in-touch-form-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #1e293b;
+      border: 1px solid rgba(217, 255, 63, 0.15);
+      border-radius: 12px;
+      padding: clamp(40px, 8vw, 60px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    .get-in-touch-form {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .get-in-touch-form .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .get-in-touch-form .form-group label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: 0.3px;
+    }
+
+    .get-in-touch-form input,
+    .get-in-touch-form textarea {
+      padding: 16px 18px;
+      background: rgba(10, 15, 25, 0.7);
+      border: 1px solid rgba(217, 255, 63, 0.15);
+      border-radius: 8px;
+      color: #e0e0e0;
+      font-family: inherit;
+      font-size: 15px;
+      line-height: 1.5;
+      transition: all 0.3s ease;
+    }
+
+    .get-in-touch-form input::placeholder,
+    .get-in-touch-form textarea::placeholder {
+      color: #666;
+    }
+
+    .get-in-touch-form input:focus,
+    .get-in-touch-form textarea:focus {
+      outline: none;
+      border-color: rgba(217, 255, 63, 0.5);
+      background: rgba(10, 15, 25, 0.9);
+      box-shadow: 0 0 12px rgba(217, 255, 63, 0.1);
+    }
+
+    .get-in-touch-form textarea {
+      resize: vertical;
+      min-height: 150px;
+      font-family: inherit;
+    }
+
+    .submit-btn {
+      padding: 16px 28px;
+      background: linear-gradient(135deg, #ffb347, #ff9500);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      width: 100%;
+      box-shadow: 0 8px 24px rgba(255, 149, 0, 0.3);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(255, 149, 0, 0.45);
+      background: linear-gradient(135deg, #ffbf5f, #ffad1f);
+    }
+
+    .submit-btn:active {
+      transform: translateY(-1px);
+    }
+
+    .plane-icon {
+      font-size: 18px;
+    }
+
+    /* =========================
        FOOTER
     ========================= */
 
@@ -1020,6 +1606,173 @@
     }
 
     /* =========================
+       CONTACT FORM MODAL
+    ========================= */
+
+    .contact-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(0,0,0,.85);
+      backdrop-filter: blur(12px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .45s ease, visibility .45s ease;
+    }
+
+    .contact-modal.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .contact-form-container {
+      width: min(100%, 640px);
+      padding: clamp(48px, 6vw, 64px);
+      background: #0d0d15;
+      border: 1px solid rgba(217,255,63,.3);
+      box-shadow: 0 25px 80px rgba(0,0,0,.6);
+      border-radius: 12px;
+      transform: translateY(24px) scale(.96);
+      transition: transform .45s ease;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .contact-modal.is-open .contact-form-container {
+      transform: translateY(0) scale(1);
+    }
+
+    .contact-form-header {
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .contact-form-header h2 {
+      font-size: clamp(36px, 6vw, 56px);
+      line-height: 1.2;
+      letter-spacing: -3px;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    .contact-form-header p {
+      color: #888;
+      font-size: 15px;
+      max-width: 400px;
+    }
+
+    .contact-form-header p::after {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: var(--accent);
+      margin-top: 12px;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 14px 16px;
+      background: rgba(30,30,40,.6);
+      border: 1px solid rgba(217,255,63,.2);
+      border-radius: 6px;
+      color: var(--white);
+      font-family: inherit;
+      font-size: 14px;
+      transition: border-color .3s ease, background .3s ease;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: #666;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: rgba(30,30,40,.8);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .form-submit {
+      margin-top: 12px;
+      padding: 14px 24px;
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .form-submit:hover {
+      background: #e8ff4d;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(217,255,63,.3);
+    }
+
+    .form-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid #333;
+      border-radius: 50%;
+      color: var(--white);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .3s ease;
+      z-index: 10;
+    }
+
+    .form-close:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* =========================
        TABLET
     ========================= */
 
@@ -1027,11 +1780,23 @@
 
       .hero {
         grid-template-columns: 1fr;
-        padding-top: 80px;
+        min-height: auto;
+        padding: 0;
+      }
+
+      .hero-content {
+        padding: 100px 6% 80px;
+        order: -1;
       }
 
       .hero-art {
-        min-height: 430px;
+        min-height: 500px;
+        padding-right: 0;
+        padding-bottom: 60px;
+      }
+
+      .hero h1 {
+        font-size: clamp(40px, 8vw, 80px);
       }
 
       .about-grid,
@@ -1046,6 +1811,14 @@
       .process-grid {
         grid-template-columns: 1fr;
         gap: 60px;
+      }
+
+      .get-in-touch {
+        padding: 90px 6%;
+      }
+
+      .get-in-touch-form-wrapper {
+        padding: clamp(30px, 6vw, 50px);
       }
     }
 
@@ -1099,32 +1872,63 @@
 
       .hero {
         min-height: auto;
-        padding: 90px 6% 60px;
+        padding: 0;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-content {
+        padding: 80px 6% 50px;
       }
 
       .hero h1 {
-        font-size: clamp(52px, 15vw, 80px);
-        letter-spacing: -5px;
+        font-size: clamp(42px, 12vw, 75px);
+        letter-spacing: -3px;
+        margin-bottom: 25px;
       }
 
       .hero-text {
         font-size: 14px;
+        margin: 25px 0 35px;
+      }
+
+      .hero-buttons {
+        gap: 15px;
+      }
+
+      .btn {
+        min-height: 48px;
+        padding: 0 24px;
+        font-size: 13px;
       }
 
       .hero-art {
-        min-height: 360px;
-        transform: scale(.8);
-        margin: -20px 0;
+        min-height: 420px;
+        padding: 0;
+        padding-bottom: 50px;
       }
 
       .hero-glow {
-        width: 340px;
-        height: 340px;
+        width: 350px;
+        height: 350px;
+      }
+
+      .hero-ring {
+        width: 310px;
+        height: 310px;
       }
 
       .hero-card {
-        width: 240px;
-        height: 310px;
+        width: 260px;
+        height: 330px;
+        padding: 30px;
+      }
+
+      .hero-card .mit {
+        font-size: 65px;
+      }
+
+      .hero-card strong {
+        font-size: 26px;
       }
 
       .section {
@@ -1189,6 +1993,26 @@
         letter-spacing: -4px;
       }
 
+      .get-in-touch {
+        padding: 70px 6%;
+      }
+
+      .get-in-touch-header {
+        margin-bottom: 50px;
+      }
+
+      .get-in-touch-header h2 {
+        margin-bottom: 16px;
+      }
+
+      .get-in-touch-form-wrapper {
+        padding: clamp(25px, 5vw, 40px);
+      }
+
+      .get-in-touch-form {
+        gap: 20px;
+      }
+
       footer {
         padding: 35px 6%;
         flex-direction: column;
@@ -1202,23 +2026,57 @@
 
     @media (max-width: 420px) {
 
+      .hero-content {
+        padding: 70px 5% 40px;
+      }
+
       .hero h1 {
-        font-size: 50px;
+        font-size: clamp(36px, 10vw, 60px);
+        line-height: 1;
+      }
+
+      .hero-text {
+        font-size: 13px;
+        margin: 20px 0 30px;
       }
 
       .hero-buttons {
         flex-direction: column;
         align-items: stretch;
+        gap: 12px;
       }
 
       .btn {
         width: 100%;
+        min-height: 46px;
       }
 
       .hero-art {
-        transform: scale(.7);
-        margin-left: -25px;
-        margin-right: -25px;
+        min-height: 360px;
+        padding-bottom: 40px;
+      }
+
+      .hero-glow {
+        width: 300px;
+        height: 300px;
+      }
+
+      .hero-ring {
+        width: 260px;
+        height: 260px;
+      }
+
+      .hero-card {
+        width: 220px;
+        height: 280px;
+      }
+
+      .hero-card .mit {
+        font-size: 55px;
+      }
+
+      .hero-card strong {
+        font-size: 22px;
       }
 
       .project-image,
@@ -1228,6 +2086,35 @@
 
       .socials {
         flex-wrap: wrap;
+      }
+
+      .get-in-touch {
+        padding: 60px 5%;
+      }
+
+      .get-in-touch-header h2 {
+        font-size: clamp(32px, 7vw, 50px);
+        margin-bottom: 14px;
+      }
+
+      .get-in-touch-header p {
+        font-size: clamp(14px, 2.5vw, 18px);
+      }
+
+      .get-in-touch-form-wrapper {
+        padding: 25px;
+        margin-top: 40px;
+      }
+
+      .get-in-touch-form input,
+      .get-in-touch-form textarea {
+        font-size: 14px;
+        padding: 13px 14px;
+      }
+
+      .submit-btn {
+        padding: 14px 20px;
+        font-size: 14px;
       }
     }
 
@@ -1256,12 +2143,95 @@
     </div>
   </div>
 
+  <!-- INAUGURATION MODAL -->
+  <div
+    class="inauguration-modal"
+    id="inaugurationModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="inaugurationTitle"
+  >
+    <div class="inauguration-panel">
+      <img
+        class="inauguration-image"
+        src="https://chatgpt.com/backend-api/estuary/content?id=file_00000000d1a482089c124a1cc8a20a19&amp;ts=496493&amp;p=fs&amp;cid=1&amp;sig=e24e6c11d5c8c7da9be336986b64923c6166c68c609ee0d92d9172ad1d5347e3&amp;v=0"
+        alt="MIT DISINIG inauguration artwork"
+      >
+      <div class="inauguration-kicker">A new creative chapter</div>
+      <h2 id="inaugurationTitle">
+        Welcome to <span>MIT DISINIG.</span>
+      </h2>
+      <p>
+        Explore bold ideas, thoughtful design and digital experiences made
+        to leave a lasting impression.
+      </p>
+      <button class="inauguration-close" id="inaugurationClose" type="button">
+        ENTER
+      </button>
+    </div>
+  </div>
+
+  <!-- CONTACT FORM MODAL -->
+  <div
+    class="contact-modal"
+    id="contactModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="contactFormTitle"
+  >
+    <div class="contact-form-container">
+      <button class="form-close" id="contactFormClose" type="button">✕</button>
+
+      <div class="contact-form-header">
+        <h2 id="contactFormTitle">Get in Touch</h2>
+        <p>Let's collaborate on your next design project</p>
+      </div>
+
+      <form class="contact-form" id="contactForm" method="POST">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            placeholder="Enter your full name" 
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="email">Your Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            placeholder="Enter your email address" 
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea 
+            id="message" 
+            name="message" 
+            placeholder="Tell me about your project..." 
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">
+          ✈ Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- CUSTOM CURSOR -->
   <div class="cursor" id="cursor"></div>
 
   <!-- NAVIGATION -->
-  <header class="navbar">
-
+  <header class="navbar"></header>
     <a href="#home" class="logo">
       MIT<span>DISINIG</span>
     </a>
@@ -1445,7 +2415,7 @@
       </div>
 
       <h2 class="reveal">
-        What we <span>do.</span>
+        About <span>Me.</span>
       </h2>
 
       <div class="service-grid">
@@ -1461,7 +2431,7 @@
           </div>
 
           <h3>
-            Brand Identity
+            Creative Designer
           </h3>
 
           <p>
@@ -1482,7 +2452,7 @@
           </div>
 
           <h3>
-            UI / UX Design
+            Photo Designing
           </h3>
 
           <p>
@@ -1503,7 +2473,7 @@
           </div>
 
           <h3>
-            Web Design
+            Video Editing
           </h3>
 
           <p>
@@ -1524,7 +2494,7 @@
           </div>
 
           <h3>
-            Creative Direction
+            Web Designing
           </h3>
 
           <p>
@@ -1563,7 +2533,7 @@
 
           <article class="project project-large reveal">
 
-            <div class="project-image gradient-one">
+            <div class="project-image project-image-photo">
               <span class="project-number">
                 01
               </span>
@@ -1808,6 +2778,10 @@
 
         <div class="reveal">
 
+          <h2 style="margin-bottom: 40px; font-size: clamp(32px, 5vw, 60px); letter-spacing: -3px;">
+            Get in Touch
+          </h2>
+
           <p class="eyebrow">
             LET'S WORK TOGETHER
           </p>
@@ -1867,6 +2841,57 @@
 
     </section>
 
+    <!-- GET IN TOUCH -->
+    <section class="get-in-touch" id="get-in-touch">
+      <div class="get-in-touch-inner">
+        <div class="get-in-touch-header">
+          <h2>Get In Touch</h2>
+          <p>Let's collaborate on <span class="highlight-accent">your next</span> design project</p>
+        </div>
+
+        <div class="get-in-touch-form-wrapper">
+          <form class="get-in-touch-form" id="getInTouchForm">
+            <div class="form-group">
+              <label for="touch-name">Your Name</label>
+              <input 
+                type="text" 
+                id="touch-name" 
+                name="name" 
+                placeholder="Enter your full name" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="touch-email">Your Email</label>
+              <input 
+                type="email" 
+                id="touch-email" 
+                name="email" 
+                placeholder="Enter your email address" 
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="touch-message">Message</label>
+              <textarea 
+                id="touch-message" 
+                name="message" 
+                placeholder="Tell me about your project..." 
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <span class="plane-icon">✈</span>
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <!-- FOOTER -->
@@ -1913,7 +2938,125 @@
         loader.classList.add("hide");
       }, 700);
 
+      setTimeout(() => {
+        document.getElementById("inaugurationModal").classList.add("is-open");
+        document.body.classList.add("menu-open");
+      }, 950);
+
     });
+
+    const inaugurationModal = document.getElementById("inaugurationModal");
+    const inaugurationClose = document.getElementById("inaugurationClose");
+
+    function closeInaugurationModal() {
+      inaugurationModal.classList.remove("is-open");
+      document.body.classList.remove("menu-open");
+    }
+
+    inaugurationClose.addEventListener("click", closeInaugurationModal);
+
+    inaugurationModal.addEventListener("click", event => {
+      if (event.target === inaugurationModal) {
+        closeInaugurationModal();
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && inaugurationModal.classList.contains("is-open")) {
+        closeInaugurationModal();
+      }
+    });
+
+
+    /* =========================
+       CONTACT MODAL
+    ========================= */
+
+    const contactModal = document.getElementById("contactModal");
+    const contactFormClose = document.getElementById("contactFormClose");
+    const contactForm = document.getElementById("contactForm");
+
+    function openContactModal() {
+      contactModal.classList.add("is-open");
+      document.body.classList.add("menu-open");
+    }
+
+    function closeContactModal() {
+      contactModal.classList.remove("is-open");
+      document.body.classList.remove("menu-open");
+    }
+
+    contactFormClose.addEventListener("click", closeContactModal);
+
+    contactModal.addEventListener("click", event => {
+      if (event.target === contactModal) {
+        closeContactModal();
+      }
+    });
+
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && contactModal.classList.contains("is-open")) {
+        closeContactModal();
+      }
+    });
+
+    // Open contact modal from contact links
+    document.querySelectorAll("a[href='#contact']").forEach(link => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        openContactModal();
+      });
+    });
+
+    // Handle form submission
+    contactForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+
+      // Log form data (in a real app, you'd send this to a server)
+      console.log("Form submitted:", { name, email, message });
+      
+      // Show success message
+      alert("Thank you for reaching out! We'll get back to you soon.");
+      
+      // Reset form
+      contactForm.reset();
+      
+      // Close modal
+      closeContactModal();
+    });
+
+
+    /* =========================
+       GET IN TOUCH FORM
+    ========================= */
+
+    const getInTouchForm = document.getElementById("getInTouchForm");
+
+    if (getInTouchForm) {
+      getInTouchForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        
+        const name = document.getElementById("touch-name").value;
+        const email = document.getElementById("touch-email").value;
+        const message = document.getElementById("touch-message").value;
+
+        // Log form data (in a real app, you'd send this to a server)
+        console.log("Get In Touch Form submitted:", { name, email, message });
+        
+        // Show success message
+        alert("Thank you for reaching out! We'll get back to you soon.");
+        
+        // Reset form
+        getInTouchForm.reset();
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    }
 
 
     /* =========================
