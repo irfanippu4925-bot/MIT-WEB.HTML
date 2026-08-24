@@ -171,121 +171,6 @@
       animation: loading 1.3s ease infinite;
     }
 
-    .inauguration-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 9000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      background: rgba(0,0,0,.72);
-      backdrop-filter: blur(12px);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity .45s ease, visibility .45s ease;
-    }
-
-    .inauguration-modal.is-open {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .inauguration-panel {
-      width: min(100%, 560px);
-      min-height: 540px;
-      padding: clamp(32px, 6vw, 64px);
-      position: relative;
-      overflow: hidden;
-      background: #0b0d0a;
-      border: 1px solid rgba(217,255,63,.45);
-      box-shadow: 0 25px 80px rgba(0,0,0,.6);
-      transform: translateY(24px) scale(.96);
-      transition: transform .45s ease;
-    }
-
-    .inauguration-modal.is-open .inauguration-panel {
-      transform: translateY(0) scale(1);
-    }
-
-    .inauguration-panel::before {
-      content: "";
-      width: 220px;
-      height: 220px;
-      position: absolute;
-      top: -100px;
-      right: -70px;
-      border: 1px solid rgba(217,255,63,.3);
-      border-radius: 50%;
-      z-index: 1;
-      box-shadow: 0 0 0 24px rgba(217,255,63,.04), 0 0 0 48px rgba(217,255,63,.04);
-    }
-
-    .inauguration-panel::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,.58);
-      z-index: 1;
-    }
-
-    .inauguration-image {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      object-fit: cover;
-    }
-
-    .inauguration-panel > *:not(.inauguration-image) {
-      position: relative;
-      z-index: 2;
-    }
-
-    .inauguration-kicker {
-      color: var(--accent);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .inauguration-panel h2 {
-      max-width: 420px;
-      margin: 20px 0 14px;
-      font-size: clamp(38px, 7vw, 72px);
-      line-height: .95;
-      letter-spacing: -3px;
-    }
-
-    .inauguration-panel h2 span {
-      color: var(--accent);
-    }
-
-    .inauguration-panel p {
-      max-width: 390px;
-      color: var(--gray);
-      font-size: 15px;
-    }
-
-    .inauguration-close {
-      margin-top: 30px;
-      padding: 13px 22px;
-      border: 1px solid var(--accent);
-      border-radius: 30px;
-      background: var(--accent);
-      color: var(--black);
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .inauguration-close:hover {
-      background: var(--white);
-      border-color: var(--white);
-    }
 
     @keyframes loading {
       from {
@@ -993,8 +878,7 @@
     }
 
     .about h2,
-    .services h2,
-    .work h2 {
+    .services h2 {
       font-size: clamp(45px, 6vw, 80px);
       line-height: .95;
       letter-spacing: -5px;
@@ -1002,9 +886,33 @@
     }
 
     .about h2 span,
-    .services h2 span,
-    .work h2 span {
+    .services h2 span {
       color: #777;
+    }
+
+    .about-me-link a {
+      display: inline-block;
+      transition: color .3s ease, transform .3s ease;
+    }
+
+    .about-me-link a:hover {
+      color: var(--accent);
+      transform: translateX(8px);
+    }
+
+    .about-me-link a::after {
+      content: "↗";
+      color: var(--accent);
+      font-size: .35em;
+      margin-left: 14px;
+      vertical-align: top;
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+
+    .about-me-link a:hover::after,
+    .about-me-link a:focus-visible::after {
+      opacity: 1;
     }
 
     .about-content p {
@@ -1028,241 +936,128 @@
     ========================= */
 
     .services {
-      background: rgba(8,8,8,.88);
+      background: #080808;
+      position: relative;
     }
 
     .service-grid {
       display: grid;
-      grid-template-columns: repeat(4,1fr);
+      grid-template-columns: repeat(4, 1fr);
       margin-top: 80px;
-      border-top: 1px solid var(--border);
-      border-left: 1px solid var(--border);
+      border: 1px solid var(--border);
     }
 
     .service-card {
-      min-height: 320px;
-      padding: 30px 25px;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      min-height: 330px;
+      padding: 35px 28px;
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       position: relative;
       overflow: hidden;
+      background: #0d0d0d;
       transition:
         background .35s ease,
-        transform .35s ease;
+        transform .35s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color .35s ease,
+        box-shadow .35s ease;
+      cursor: pointer;
+    }
+
+    .service-card:nth-child(4n) {
+      border-right: none;
     }
 
     .service-card::before {
       content: "";
       position: absolute;
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      background: var(--accent);
+      background: #f59e0b;
       filter: blur(60px);
       opacity: 0;
       right: -40px;
       bottom: -40px;
       transition: opacity .4s ease;
+      pointer-events: none;
     }
 
     .service-card:hover {
-      background: #121212;
-      transform: translateY(-5px);
+      background: #141414;
+      transform: translateY(-8px);
+      border-color: #f59e0b;
+      box-shadow: 0 14px 35px rgba(245, 158, 11, 0.15);
+      z-index: 2;
     }
 
     .service-card:hover::before {
-      opacity: .18;
+      opacity: .22;
     }
 
     .service-number {
-      color: #555;
-      font-size: 11px;
+      color: #666;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
     }
 
     .service-icon {
       width: 55px;
       height: 55px;
-      margin: 50px 0 25px;
+      margin: 45px 0 25px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid #333;
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 50%;
       color: var(--accent);
-      font-size: 22px;
-      transition: .3s ease;
+      font-size: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      transition:
+        transform .35s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color .35s ease,
+        background .35s ease,
+        color .35s ease,
+        box-shadow .35s ease;
     }
 
     .service-card:hover .service-icon {
-      background: var(--accent);
-      color: var(--black);
-      border-color: var(--accent);
-      transform: rotate(15deg);
+      background: #f59e0b;
+      color: #080808;
+      border-color: #f59e0b;
+      transform: translateY(-2px) scale(1.08) rotate(8deg);
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
     }
 
     .service-card h3 {
       font-size: 19px;
+      font-weight: 700;
       margin-bottom: 12px;
+      color: var(--white);
+      letter-spacing: -0.5px;
+      transition: color .3s ease;
+    }
+
+    .service-card:hover h3 {
+      color: #fff;
     }
 
     .service-card p {
-      color: #707070;
-      font-size: 13px;
-      max-width: 250px;
-    }
-
-    /* =========================
-       WORK
-    ========================= */
-
-    .work {
-      max-width: none;
-      background: #111;
-    }
-
-    .work-inner {
-      max-width: var(--max-width);
-      margin: auto;
-    }
-
-    .work-heading {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 30px;
-    }
-
-    .work-heading p {
-      max-width: 260px;
       color: #777;
       font-size: 13px;
+      line-height: 1.6;
+      max-width: 250px;
+      transition: color .3s ease;
     }
 
-    .project-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      margin-top: 75px;
+    .service-card:hover p {
+      color: #bbb;
     }
 
-    .project-large {
-      grid-row: span 2;
-    }
-
-    .project-image {
-      height: 400px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-end;
-      padding: 20px;
-    }
-
-    .project-large .project-image {
-      height: 660px;
-    }
-
-    .project-image::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        135deg,
-        transparent 40%,
-        rgba(255,255,255,.12)
-      );
-      opacity: .5;
-    }
-
-    .project-number {
-      position: relative;
-      z-index: 2;
-      font-size: 11px;
-      background: rgba(0,0,0,.45);
-      padding: 7px 10px;
-      backdrop-filter: blur(10px);
-    }
-
-    .gradient-one {
-      background:
-        radial-gradient(
-          circle at 25% 25%,
-          #d9ff3f 0,
-          transparent 25%
-        ),
-        linear-gradient(
-          135deg,
-          #6b00ff,
-          #090909 70%
-        );
-    }
-
-    .project-image-photo {
-      background-image:
-        linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.2)),
-        url("./poster\ 1.jpg");
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-
-    .gradient-two {
-      background-image:
-        linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.2)),
-        url("poster 2.jpg");
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-
-    .gradient-three {
-      background-image:
-        linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.18)),
-        url("poster3.jpg");
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
-
-    .project-image:hover {
-      transform: scale(.985);
-    }
-
-    .project-info {
-      padding: 18px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .project-info h3 {
-      font-size: 19px;
-    }
-
-    .project-info p {
-      color: #666;
-      font-size: 11px;
-      margin-top: 3px;
-    }
-
-    .project-arrow {
-      width: 40px;
-      height: 40px;
-      border: 1px solid #333;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--accent);
-      transition: .3s ease;
-    }
-
-    .project:hover .project-arrow {
-      background: var(--accent);
-      color: var(--black);
-      transform: rotate(45deg);
-    }
 
     /* =========================
        PROCESS
@@ -1426,7 +1221,7 @@
     }
 
     /* =========================
-       GET IN TOUCH
+       Get in Touch
     ========================= */
 
     .get-in-touch {
@@ -1833,6 +1628,14 @@
         grid-template-columns: 1fr 1fr;
       }
 
+      .service-card:nth-child(2n) {
+        border-right: none;
+      }
+
+      .service-card:nth-child(2n+1) {
+        border-right: 1px solid var(--border);
+      }
+
       .process-grid {
         grid-template-columns: 1fr;
         gap: 60px;
@@ -1972,7 +1775,6 @@
 
       .about h2,
       .services h2,
-      .work h2,
       .process-title,
       .contact h2 {
         letter-spacing: -3px;
@@ -1985,28 +1787,7 @@
 
       .service-card {
         min-height: 280px;
-      }
-
-      .work-heading {
-        display: block;
-      }
-
-      .work-heading p {
-        margin-top: 25px;
-      }
-
-      .project-grid {
-        grid-template-columns: 1fr;
-        margin-top: 50px;
-      }
-
-      .project-large {
-        grid-row: auto;
-      }
-
-      .project-image,
-      .project-large .project-image {
-        height: 360px;
+        border-right: none;
       }
 
       .process-item {
@@ -2104,10 +1885,6 @@
         font-size: 22px;
       }
 
-      .project-image,
-      .project-large .project-image {
-        height: 300px;
-      }
 
       .socials {
         flex-wrap: wrap;
@@ -2168,33 +1945,6 @@
     </div>
   </div>
 
-  <!-- INAUGURATION MODAL -->
-  <div
-    class="inauguration-modal"
-    id="inaugurationModal"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="inaugurationTitle"
-  >
-    <div class="inauguration-panel">
-      <img
-        class="inauguration-image"
-        src="https://chatgpt.com/backend-api/estuary/content?id=file_00000000d1a482089c124a1cc8a20a19&amp;ts=496493&amp;p=fs&amp;cid=1&amp;sig=e24e6c11d5c8c7da9be336986b64923c6166c68c609ee0d92d9172ad1d5347e3&amp;v=0"
-        alt="MIT DISINIG inauguration artwork"
-      >
-      <div class="inauguration-kicker">A new creative chapter</div>
-      <h2 id="inaugurationTitle">
-        Welcome to <span>MIT DISINIG.</span>
-      </h2>
-      <p>
-        Explore bold ideas, thoughtful design and digital experiences made
-        to leave a lasting impression.
-      </p>
-      <button class="inauguration-close" id="inaugurationClose" type="button">
-        ENTER
-      </button>
-    </div>
-  </div>
 
   <!-- CONTACT FORM MODAL -->
   <div
@@ -2265,7 +2015,6 @@
       <a href="#home" class="active">Home</a>
       <a href="#about">About</a>
       <a href="#services">Services</a>
-      <a href="#work">Work</a>
       <a href="#process">Process</a>
       <a href="#contact">Contact</a>
       <a href="#contact" class="nav-contact">Start Project ↗</a>
@@ -2303,8 +2052,8 @@
 
         <div class="hero-buttons">
 
-          <a href="#work" class="btn btn-primary">
-            Explore Work
+          <a href="#services" class="btn btn-primary">
+            Explore Services
             <span>→</span>
           </a>
 
@@ -2439,201 +2188,73 @@
         02 / SERVICES
       </div>
 
-      <h2 class="reveal">
-        About <span>Me.</span>
+      <h2 class="reveal about-me-link">
+        <a href="./about.html" aria-label="Open the About Me page">
+          About <span>Me.</span>
+        </a>
       </h2>
 
       <div class="service-grid">
 
-        <article class="service-card reveal">
-
+        <a href="creative-designer.html" class="service-card reveal">
           <div class="service-number">
             01
           </div>
-
           <div class="service-icon">
             ✦
           </div>
-
           <h3>
             Creative Designer
           </h3>
-
           <p>
-            Strong visual identities that make your brand
-            recognizable and unforgettable.
+            Strong visual identities that make your brand recognizable and unforgettable.
           </p>
+        </a>
 
-        </article>
-
-        <article class="service-card reveal">
-
+        <a href="photo-designing.html" class="service-card reveal">
           <div class="service-number">
             02
           </div>
-
           <div class="service-icon">
-            ◉
+            ◎
           </div>
-
           <h3>
             Photo Designing
           </h3>
-
           <p>
-            Beautiful, intuitive interfaces designed around
-            real people and real experiences.
+            Beautiful, intuitive interfaces designed around real people and real experiences.
           </p>
+        </a>
 
-        </article>
-
-        <article class="service-card reveal">
-
+        <a href="video-editing.html" class="service-card reveal">
           <div class="service-number">
             03
           </div>
-
           <div class="service-icon">
             ⌁
           </div>
-
           <h3>
             Video Editing
           </h3>
-
           <p>
-            Modern responsive websites that look great and
-            perform beautifully on every device.
+            Modern responsive websites that look great and perform beautifully on every device.
           </p>
+        </a>
 
-        </article>
-
-        <article class="service-card reveal">
-
+        <a href="web-designing.html" class="service-card reveal">
           <div class="service-number">
             04
           </div>
-
           <div class="service-icon">
             ↗
           </div>
-
           <h3>
             Web Designing
           </h3>
-
           <p>
-            Strategic creative direction that transforms
-            ideas into powerful visual stories.
+            Strategic creative direction that transforms ideas into powerful visual stories.
           </p>
-
-        </article>
-
-      </div>
-
-    </section>
-
-    <!-- WORK -->
-    <section class="work section" id="work">
-
-      <div class="work-inner">
-
-        <div class="section-label">
-          03 / SELECTED WORK
-        </div>
-
-        <div class="work-heading">
-
-          <h2 class="reveal">
-            MY WORKS
-          </h2>
-
-          <p>
-            Selected creative projects from MIT DISINIG.
-          </p>
-
-        </div>
-
-        <div class="project-grid">
-
-          <article class="project project-large reveal">
-
-            <div class="project-image project-image-photo">
-              <span class="project-number">
-                01
-              </span>
-            </div>
-
-            <div class="project-info">
-
-              <div>
-                <h3>
-                 meelad work
-                </h3>
-
-              </div>
-
-              <span class="project-arrow">
-                ↗
-              </span>
-
-            </div>
-
-          </article>
-
-          <article class="project reveal">
-
-            <div class="project-image gradient-two">
-              <span class="project-number">
-                02
-              </span>
-            </div>
-
-            <div class="project-info">
-
-              <div>
-                <h3>
-                  work
-                </h3>
-
-                
-              </div>
-
-              <span class="project-arrow">
-                ↗
-              </span>
-
-            </div>
-
-          </article>
-
-          <article class="project reveal">
-
-            <div class="project-image gradient-three">
-              <span class="project-number">
-                03
-              </span>
-            </div>
-
-            <div class="project-info">
-
-              <div>
-                <h3>
-                 work
-                </h3>
-
-                
-              </div>
-
-              <span class="project-arrow">
-                ↗
-              </span>
-
-            </div>
-
-          </article>
-
-        </div>
+        </a>
 
       </div>
 
@@ -2645,7 +2266,7 @@
       <div class="process-inner">
 
         <div class="section-label">
-          04 / PROCESS
+          03 / PROCESS
         </div>
 
         <div class="process-grid">
@@ -2789,7 +2410,7 @@
     <section class="contact section" id="contact">
 
       <div class="section-label">
-        05 / CONTACT
+        04 / CONTACT
       </div>
 
       <div class="contact-grid">
@@ -2797,7 +2418,8 @@
         <div class="reveal">
 
           <h2 style="margin-bottom: 40px; font-size: clamp(32px, 5vw, 60px); letter-spacing: -3px;">
-            Get in Touch
+            do you have a project in your mind?
+          
           </h2>
 
           <p class="eyebrow">
@@ -2956,33 +2578,6 @@
         loader.classList.add("hide");
       }, 700);
 
-      setTimeout(() => {
-        document.getElementById("inaugurationModal").classList.add("is-open");
-        document.body.classList.add("menu-open");
-      }, 950);
-
-    });
-
-    const inaugurationModal = document.getElementById("inaugurationModal");
-    const inaugurationClose = document.getElementById("inaugurationClose");
-
-    function closeInaugurationModal() {
-      inaugurationModal.classList.remove("is-open");
-      document.body.classList.remove("menu-open");
-    }
-
-    inaugurationClose.addEventListener("click", closeInaugurationModal);
-
-    inaugurationModal.addEventListener("click", event => {
-      if (event.target === inaugurationModal) {
-        closeInaugurationModal();
-      }
-    });
-
-    document.addEventListener("keydown", event => {
-      if (event.key === "Escape" && inaugurationModal.classList.contains("is-open")) {
-        closeInaugurationModal();
-      }
     });
 
 
