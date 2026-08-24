@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative Designer Portfolio — Muhammed Irfan | MIT DISINIG. Featured poster designs, visual identity, and typography.">
+  <title>Creative Designer — Poster Works | MIT DISINIG</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face {
+      font-family: "Tenada";
+      src: url("./Tenada.ttf") format("truetype");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root {
+      --ink: #080808;
+      --surface: #101010;
+      --surface-card: #141414;
+      --surface-hover: #1a1a1a;
+      --text: #f5f7fa;
+      --muted: #8e99a8;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-hover: rgba(245, 158, 11, 0.5);
+      --amber: #f59e0b;
+      --accent: #d9ff3f;
+      --max: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--ink);
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--ink);
+      color: var(--text);
+      font-family: "DM Sans", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .25;
+      background-image: 
+        linear-gradient(rgba(255,255,255,.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      z-index: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 48px));
+      margin-inline: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* =========================
+       TOPBAR
+    ========================= */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 8, 8, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topbar-inner {
+      min-height: 80px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.06em;
+    }
+
+    .logo span {
+      color: var(--amber);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .back-link {
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: var(--amber);
+      transform: translateX(-4px);
+    }
+
+    .btn-contact {
+      padding: 10px 18px;
+      border-radius: 6px;
+      background: var(--amber);
+      color: var(--ink);
+      font-size: 0.84rem;
+      font-weight: 700;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-contact:hover {
+      background: #ffd166;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.25);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+    .page-hero {
+      padding: 90px 0 60px;
+      position: relative;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--amber);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--amber);
+      box-shadow: 0 0 10px var(--amber);
+    }
+
+    .hero-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2.6rem, 5.5vw, 4.8rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      max-width: 850px;
+      margin-bottom: 24px;
+    }
+
+    .hero-title span {
+      color: var(--amber);
+    }
+
+    .hero-lead {
+      color: var(--muted);
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      max-width: 680px;
+      line-height: 1.7;
+      margin-bottom: 35px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .tag {
+      padding: 6px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      font-size: 0.8rem;
+      color: #ccc;
+      font-weight: 500;
+    }
+
+    /* =========================
+       GALLERY SECTION
+    ========================= */
+    .gallery-section {
+      padding: 40px 0 100px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 50px;
+    }
+
+    .section-header h2 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .section-count {
+      color: var(--amber);
+      font-family: "Space Grotesk", sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+    }
+
+    .poster-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .poster-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--amber);
+      box-shadow: 0 20px 45px rgba(245, 158, 11, 0.18);
+    }
+
+    .poster-media {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: #050505;
+    }
+
+    .poster-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .poster-card:hover .poster-img {
+      transform: scale(1.05);
+    }
+
+    .poster-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(8, 8, 8, 0.85) 100%);
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+    }
+
+    .poster-card:hover .poster-overlay {
+      opacity: 1;
+    }
+
+    .preview-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--amber);
+      color: var(--ink);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .poster-info {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .poster-number {
+      color: var(--amber);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+
+    .poster-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .poster-desc {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    /* =========================
+       CTA SECTION
+    ========================= */
+    .cta-banner {
+      background: linear-gradient(135deg, #161616 0%, #0d0d0d 100%);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: clamp(40px, 6vw, 70px);
+      text-align: center;
+      margin-bottom: 90px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: var(--amber);
+      border-radius: 50%;
+      filter: blur(120px);
+      opacity: 0.12;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .cta-banner h2 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+
+    .cta-banner p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 540px;
+      margin: 0 auto 30px;
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: var(--amber);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.92rem;
+      border-radius: 8px;
+      transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-main:hover {
+      background: #ffd166;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 0.92rem;
+      border-radius: 8px;
+      transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--amber);
+      background: rgba(245, 158, 11, 0.08);
+      transform: translateY(-3px);
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 35px 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    /* =========================
+       LIGHTBOX MODAL
+    ========================= */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+    }
+
+    .lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: min(900px, 92vw);
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      box-shadow: 0 25px 80px rgba(0,0,0,0.8);
+    }
+
+    .lightbox-caption {
+      margin-top: 16px;
+      text-align: center;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -45px;
+      right: 0;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid var(--border);
+      color: #fff;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .lightbox-close:hover {
+      background: var(--amber);
+      color: var(--ink);
+      transform: scale(1.1);
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+    @media (max-width: 992px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 28px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .topbar-inner {
+        min-height: 70px;
+      }
+      .page-hero {
+        padding: 60px 0 40px;
+      }
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="logo" href="./index - Copy.html">MIT<span>DISINIG</span></a>
+      <div class="nav-actions">
+        <a class="back-link" href="./index - Copy.html">← Back to Home</a>
+        <a class="btn-contact" href="./index - Copy.html#contact">Hire Me ↗</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="page-hero">
+      <div class="container">
+        <div class="eyebrow">Service / 01 • Creative Design</div>
+        <h1 class="hero-title">
+          Poster & <span>Visual Identity</span> Showcase.
+        </h1>
+        <p class="hero-lead">
+          Crafting bold visual identities and memorable print/digital poster artwork. Explore featured graphic design works curated for events, branding campaigns, and artistic digital showcases.
+        </p>
+        <div class="tags">
+          <span class="tag">✦ Poster Design</span>
+          <span class="tag">✦ Typography</span>
+          <span class="tag">✦ Cultural Art</span>
+          <span class="tag">✦ Visual Branding</span>
+          <span class="tag">✦ Print & Digital</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- POSTER GALLERY SECTION -->
+    <section class="gallery-section">
+      <div class="container">
+        
+        <div class="section-header">
+          <h2>Featured Poster Works</h2>
+          <span class="section-count">03 Projects</span>
+        </div>
+
+        <div class="gallery-grid">
+
+          <!-- POSTER 1 -->
+          <article class="poster-card" onclick="openLightbox('./poster 1.jpg', 'Meelad Work — Special Festival Artwork')">
+            <div class="poster-media">
+              <img class="poster-img" src="./poster 1.jpg" alt="Poster 1 — Meelad Work Festival Artwork">
+              <div class="poster-overlay">
+                <span class="preview-btn">🔍 Click to Preview</span>
+              </div>
+            </div>
+            <div class="poster-info">
+              <span class="poster-number">PROJECT 01</span>
+              <h3 class="poster-title">Meelad Work</h3>
+              <p class="poster-desc">
+                Special celebration poster artwork featuring vibrant color depth, rich cultural motifs, and expressive Arabic calligraphy composition.
+              </p>
+            </div>
+          </article>
+
+          <!-- POSTER 2 -->
+          <article class="poster-card" onclick="openLightbox('./poster 2.jpg', 'Creative Brand Poster — Modern Graphic Design')">
+            <div class="poster-media">
+              <img class="poster-img" src="./poster 2.jpg" alt="Poster 2 — Creative Brand Poster Artwork">
+              <div class="poster-overlay">
+                <span class="preview-btn">🔍 Click to Preview</span>
+              </div>
+            </div>
+            <div class="poster-info">
+              <span class="poster-number">PROJECT 02</span>
+              <h3 class="poster-title">Brand Event Artwork</h3>
+              <p class="poster-desc">
+                Bold visual design balancing modern typography, layered gradients, and intentional layout crafted to command audience attention.
+              </p>
+            </div>
+          </article>
+
+          <!-- POSTER 3 -->
+          <article class="poster-card" onclick="openLightbox('./poster3.jpg', 'Digital Campaign Poster — High-Impact Art')">
+            <div class="poster-media">
+              <img class="poster-img" src="./poster3.jpg" alt="Poster 3 — Digital Campaign Artwork">
+              <div class="poster-overlay">
+                <span class="preview-btn">🔍 Click to Preview</span>
+              </div>
+            </div>
+            <div class="poster-info">
+              <span class="poster-number">PROJECT 03</span>
+              <h3 class="poster-title">Digital Visual Story</h3>
+              <p class="poster-desc">
+                High-contrast promotional artwork designed for digital campaigns, social media engagement, and compelling visual identity.
+              </p>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="container">
+      <div class="cta-banner">
+        <h2>Let's build something remarkable together.</h2>
+        <p>Looking for creative posters, brand design, or visual artwork for your next project?</p>
+        <div class="cta-actions">
+          <a class="btn-main" href="./index - Copy.html#contact">Start a Project ↗</a>
+          <a class="btn-outline" href="./about.html">About Muhammed Irfan →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <div>MIT DISINIG • Muhammed Irfan / Creative Design Studio</div>
+      <div>Deverkovil, Kerala, India</div>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX MODAL -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightboxDirect()" aria-label="Close Preview">✕</button>
+      <img class="lightbox-img" id="lightboxImg" src="" alt="Enlarged poster view">
+      <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+  </div>
+
+  <script>
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightboxImg");
+    const lightboxCaption = document.getElementById("lightboxCaption");
+
+    function openLightbox(src, caption) {
+      lightboxImg.src = src;
+      lightboxCaption.textContent = caption;
+      lightbox.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox(e) {
+      if (e.target === lightbox) {
+        closeLightboxDirect();
+      }
+    }
+
+    function closeLightboxDirect() {
+      lightbox.classList.remove("is-open");
+      document.body.style.overflow = "";
+    }
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && lightbox.classList.contains("is-open")) {
+        closeLightboxDirect();
+      }
+    });
+  </script>
+
+</body>
+</html>
