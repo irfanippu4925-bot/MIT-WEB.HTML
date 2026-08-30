@@ -95,32 +95,93 @@
     }
 
     /* =========================
-       CUSTOM CURSOR
+       CUSTOM CURSOR (MODERN MODEL)
     ========================= */
 
-    .cursor {
-      width: 14px;
-      height: 14px;
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
       position: fixed;
+      top: 0;
+      left: 0;
       border-radius: 50%;
-      background: #000000;
-      border: 1.5px solid rgba(255, 255, 255, 0.7);
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+      background: var(--accent);
       pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition:
-        width .25s ease,
-        height .25s ease,
-        background-color .25s ease,
-        border-color .25s ease;
+      z-index: 99999;
+      transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+      box-shadow: 0 0 12px rgba(217, 255, 63, 0.7);
+      transition: opacity 0.3s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+      will-change: transform;
     }
 
-    .cursor.active {
-      width: 45px;
-      height: 45px;
-      background: rgba(0, 0, 0, 0.7);
-      border-color: rgba(255, 255, 255, 0.9);
+    .cursor-outline {
+      width: 40px;
+      height: 40px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      border-radius: 50%;
+      border: 1.5px solid rgba(217, 255, 63, 0.45);
+      background: rgba(217, 255, 63, 0.03);
+      pointer-events: none;
+      z-index: 99998;
+      transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(1px);
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.3s ease,
+                  background-color 0.3s ease,
+                  box-shadow 0.3s ease,
+                  opacity 0.3s ease,
+                  border-radius 0.3s ease;
+      will-change: transform;
+    }
+
+    /* Hover States for Interactive Elements */
+    .cursor-outline.hovered {
+      width: 60px;
+      height: 60px;
+      border-color: var(--accent);
+      background: rgba(217, 255, 63, 0.12);
+      box-shadow: 0 0 25px rgba(217, 255, 63, 0.3);
+    }
+
+    .cursor-dot.hovered {
+      background: #ffffff;
+      box-shadow: 0 0 15px #ffffff;
+    }
+
+    /* Text Input Mode */
+    .cursor-outline.text-mode {
+      width: 4px;
+      height: 26px;
+      border-radius: 2px;
+      border: none;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+      opacity: 0.9;
+    }
+
+    .cursor-dot.text-mode {
+      opacity: 0;
+    }
+
+    /* Click Active State */
+    .cursor-outline.clicking {
+      width: 32px;
+      height: 32px;
+      border-color: #ffffff;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .cursor-dot.clicking {
+      background: #ffffff;
+    }
+
+    /* Hidden State */
+    .cursor-hidden {
+      opacity: 0 !important;
     }
 
     /* =========================
@@ -274,7 +335,7 @@
 
     /* Navbar Section Style */
     .navbar-wrapper {
-      background-color: #0b111e;
+      background-color: #080808;
       padding: 20px 40px;
       display: flex;
       justify-content: space-between;
@@ -1230,7 +1291,7 @@
     ========================= */
 
     .get-in-touch {
-      background: #121826;
+      background: #000000;
       padding: 120px 6%;
       max-width: none;
     }
@@ -1283,11 +1344,11 @@
     .get-in-touch-form-wrapper {
       max-width: 600px;
       margin: 0 auto;
-      background: #1e293b;
-      border: 1px solid rgba(217, 255, 63, 0.15);
+      background: #0a0a0a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 12px;
       padding: clamp(40px, 8vw, 60px);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(10px);
     }
 
@@ -1313,8 +1374,8 @@
     .get-in-touch-form input,
     .get-in-touch-form textarea {
       padding: 16px 18px;
-      background: rgba(10, 15, 25, 0.7);
-      border: 1px solid rgba(217, 255, 63, 0.15);
+      background: #141414;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 8px;
       color: #e0e0e0;
       font-family: inherit;
@@ -1331,9 +1392,9 @@
     .get-in-touch-form input:focus,
     .get-in-touch-form textarea:focus {
       outline: none;
-      border-color: rgba(217, 255, 63, 0.5);
-      background: rgba(10, 15, 25, 0.9);
-      box-shadow: 0 0 12px rgba(217, 255, 63, 0.1);
+      border-color: rgba(255, 255, 255, 0.4);
+      background: #1c1c1c;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.05);
     }
 
     .get-in-touch-form textarea {
@@ -1400,17 +1461,43 @@
 
     .socials {
       display: flex;
-      gap: 20px;
+      align-items: center;
+      gap: 22px;
     }
 
     .socials a {
-      color: #777;
-      font-size: 11px;
-      transition: color .3s ease;
+      color: #888888;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      position: relative;
+      padding: 4px 0;
+      transition: color 0.3s ease, transform 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .socials a::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width 0.3s ease;
     }
 
     .socials a:hover {
-      color: var(--accent);
+      color: var(--white);
+      text-decoration: none;
+      transform: translateY(-2px);
+    }
+
+    .socials a:hover::after {
+      width: 100%;
     }
 
     /* =========================
@@ -1457,9 +1544,9 @@
     .contact-form-container {
       width: min(100%, 640px);
       padding: clamp(48px, 6vw, 64px);
-      background: #0d0d15;
-      border: 1px solid rgba(217,255,63,.3);
-      box-shadow: 0 25px 80px rgba(0,0,0,.6);
+      background: #0a0a0a;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 25px 80px rgba(0,0,0,.9);
       border-radius: 12px;
       transform: translateY(24px) scale(.96);
       transition: transform .45s ease;
@@ -1523,8 +1610,8 @@
     .form-group input,
     .form-group textarea {
       padding: 14px 16px;
-      background: rgba(30,30,40,.6);
-      border: 1px solid rgba(217,255,63,.2);
+      background: #141414;
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 6px;
       color: var(--white);
       font-family: inherit;
@@ -1661,8 +1748,10 @@
 
     @media (max-width: 700px) {
 
+      .cursor-dot,
+      .cursor-outline,
       .cursor {
-        display: none;
+        display: none !important;
       }
 
       .navbar {
@@ -2008,7 +2097,8 @@
   </div>
 
   <!-- CUSTOM CURSOR -->
-  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-outline" id="cursorOutline"></div>
 
   <!-- NAVIGATION -->
   <header class="navbar"></header>
@@ -2553,16 +2643,31 @@
 
     <div class="socials">
 
-      <a href="#" aria-label="Instagram">
-        Instagram
+      <a
+        href="https://www.instagram.com/mhd_____irfan___"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram Profile"
+      >
+        Instagram ↗
       </a>
 
-      <a href="#" aria-label="Behance">
-        Behance
+      <a
+        href="https://www.behance.net/irfandeverkovil"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Behance Portfolio"
+      >
+        Behance ↗
       </a>
 
-      <a href="#" aria-label="Dribbble">
-        Dribbble
+      <a
+        href="https://dribbble.com/irfandeverkovil"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Dribbble Portfolio"
+      >
+        Dribbble ↗
       </a>
 
     </div>
@@ -2791,38 +2896,106 @@
 
 
     /* =========================
-       CUSTOM CURSOR
+       CUSTOM CURSOR (MODERN MODEL)
     ========================= */
 
-    const cursor =
-      document.getElementById("cursor");
+    const cursorDot = document.getElementById("cursorDot");
+    const cursorOutline = document.getElementById("cursorOutline");
 
-    if (window.matchMedia("(pointer:fine)").matches) {
+    if (cursorDot && cursorOutline && window.matchMedia("(pointer:fine)").matches) {
+      let mouseX = -100;
+      let mouseY = -100;
+      let outlineX = -100;
+      let outlineY = -100;
+      let isHovering = false;
+      let isClicking = false;
+      let isVisible = false;
 
-      document.addEventListener("mousemove", event => {
+      // Track mouse movement
+      window.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
 
-        cursor.style.left =
-          event.clientX + "px";
+        if (!isVisible) {
+          isVisible = true;
+          cursorDot.classList.remove("cursor-hidden");
+          cursorOutline.classList.remove("cursor-hidden");
+        }
 
-        cursor.style.top =
-          event.clientY + "px";
-
+        // Direct hardware-accelerated positioning for crisp inner dot
+        cursorDot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%) ${isClicking ? "scale(0.6)" : isHovering ? "scale(1.4)" : "scale(1)"}`;
       });
 
-      document
-        .querySelectorAll("a, button, .project, .service-card")
-        .forEach(element => {
+      // Smooth trailing ring physics (linear interpolation)
+      function animateOutline() {
+        outlineX += (mouseX - outlineX) * 0.18;
+        outlineY += (mouseY - outlineY) * 0.18;
 
-          element.addEventListener("mouseenter", () => {
-            cursor.classList.add("active");
-          });
+        cursorOutline.style.transform = `translate3d(${outlineX}px, ${outlineY}px, 0) translate(-50%, -50%) ${isClicking ? "scale(0.85)" : "scale(1)"}`;
 
-          element.addEventListener("mouseleave", () => {
-            cursor.classList.remove("active");
-          });
+        requestAnimationFrame(animateOutline);
+      }
+      requestAnimationFrame(animateOutline);
 
+      // Window focus/blur handling
+      document.addEventListener("mouseleave", () => {
+        cursorDot.classList.add("cursor-hidden");
+        cursorOutline.classList.add("cursor-hidden");
+        isVisible = false;
+      });
+
+      document.addEventListener("mouseenter", () => {
+        cursorDot.classList.remove("cursor-hidden");
+        cursorOutline.classList.remove("cursor-hidden");
+        isVisible = true;
+      });
+
+      // Click pulse animations
+      window.addEventListener("mousedown", () => {
+        isClicking = true;
+        cursorDot.classList.add("clicking");
+        cursorOutline.classList.add("clicking");
+      });
+
+      window.addEventListener("mouseup", () => {
+        isClicking = false;
+        cursorDot.classList.remove("clicking");
+        cursorOutline.classList.remove("clicking");
+      });
+
+      // Interactive hover targets (links, buttons, cards, interactive items)
+      const interactiveElements = document.querySelectorAll(
+        "a, button, input[type='submit'], .btn, .service-card, .process-item, .marquee-item, .logo, .socials a, .about-me-link, .form-close, .menu-btn, .logo-box, .status-badge"
+      );
+
+      interactiveElements.forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          isHovering = true;
+          cursorOutline.classList.add("hovered");
+          cursorDot.classList.add("hovered");
         });
+        el.addEventListener("mouseleave", () => {
+          isHovering = false;
+          cursorOutline.classList.remove("hovered");
+          cursorDot.classList.remove("hovered");
+        });
+      });
 
+      // Text input focus mode
+      const textElements = document.querySelectorAll(
+        "input[type='text'], input[type='email'], textarea"
+      );
+
+      textElements.forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          cursorOutline.classList.add("text-mode");
+          cursorDot.classList.add("text-mode");
+        });
+        el.addEventListener("mouseleave", () => {
+          cursorOutline.classList.remove("text-mode");
+          cursorDot.classList.remove("text-mode");
+        });
+      });
     }
 
 
@@ -2859,4 +3032,3 @@
 
 </body>
 </html>
-```
