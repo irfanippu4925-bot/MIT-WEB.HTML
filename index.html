@@ -103,19 +103,24 @@
       height: 14px;
       position: fixed;
       border-radius: 50%;
-      background: var(--accent);
+      background: #000000;
+      border: 1.5px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      mix-blend-mode: difference;
       transition:
         width .25s ease,
-        height .25s ease;
+        height .25s ease,
+        background-color .25s ease,
+        border-color .25s ease;
     }
 
     .cursor.active {
       width: 45px;
       height: 45px;
+      background: rgba(0, 0, 0, 0.7);
+      border-color: rgba(255, 255, 255, 0.9);
     }
 
     /* =========================
@@ -2441,7 +2446,7 @@
               EMAIL
             </small>
 
-            <a href="irfanippu4925@gmail.com">
+            <a href="mailto:irfanippu4925@gmail.com">
               irfanippu4925@gmail.com
             </a>
 
@@ -2621,19 +2626,24 @@
       });
     });
 
-    // Handle form submission
+    // WhatsApp Redirection Configuration
+    const WHATSAPP_PHONE_NUMBER = "918590133631";
+
+    function sendToWhatsApp(name, email, message) {
+      const whatsappText = `*New Contact Request*\n\n*Name:* ${name}\n*Email:* ${email}\n*Message:* ${message}`;
+      const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent(whatsappText)}`;
+      window.open(whatsappUrl, "_blank");
+    }
+
+    // Handle modal contact form submission
     contactForm.addEventListener("submit", (e) => {
       e.preventDefault();
       
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const message = document.getElementById("message").value;
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
 
-      // Log form data (in a real app, you'd send this to a server)
-      console.log("Form submitted:", { name, email, message });
-      
-      // Show success message
-      alert("Thank you for reaching out! We'll get back to you soon.");
+      sendToWhatsApp(name, email, message);
       
       // Reset form
       contactForm.reset();
@@ -2653,21 +2663,14 @@
       getInTouchForm.addEventListener("submit", (e) => {
         e.preventDefault();
         
-        const name = document.getElementById("touch-name").value;
-        const email = document.getElementById("touch-email").value;
-        const message = document.getElementById("touch-message").value;
+        const name = document.getElementById("touch-name").value.trim();
+        const email = document.getElementById("touch-email").value.trim();
+        const message = document.getElementById("touch-message").value.trim();
 
-        // Log form data (in a real app, you'd send this to a server)
-        console.log("Get In Touch Form submitted:", { name, email, message });
-        
-        // Show success message
-        alert("Thank you for reaching out! We'll get back to you soon.");
+        sendToWhatsApp(name, email, message);
         
         // Reset form
         getInTouchForm.reset();
-        
-        // Scroll to top
-        window.scrollTo({ top: 0, behavior: "smooth" });
       });
     }
 
