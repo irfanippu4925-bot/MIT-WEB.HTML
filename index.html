@@ -1852,6 +1852,591 @@
     }
 
     /* ==========================================================================
+       DESIGN TIPS SECTION
+       ========================================================================== */
+    .design-tips-section {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      padding-top: 10px;
+    }
+
+    .design-tips-section::before {
+      content: "";
+      position: absolute;
+      inset: -18% -8% auto -8%;
+      height: 80%;
+      background: radial-gradient(circle at 20% 30%, rgba(217, 255, 63, 0.16) 0%, transparent 36%),
+                  radial-gradient(circle at 80% 20%, rgba(0, 242, 254, 0.12) 0%, transparent 32%),
+                  radial-gradient(circle at 50% 80%, rgba(139, 92, 246, 0.12) 0%, transparent 36%);
+      filter: blur(68px);
+      opacity: 0.88;
+      z-index: -2;
+      animation: designTipsGlow 16s ease-in-out infinite alternate;
+    }
+
+    .design-tips-section::after {
+      content: "";
+      position: absolute;
+      inset: 7% 8% 8% 8%;
+      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01), rgba(217,255,63,0.025));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
+      z-index: -3;
+      pointer-events: none;
+    }
+
+    .design-tips-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 52px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .design-tips-header .section-heading-lg {
+      position: relative;
+      display: inline-block;
+    }
+
+    .design-tips-header .section-heading-lg::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -14px;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0.9;
+      border-radius: 999px;
+    }
+
+    .design-tips-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .design-tips-grid::before {
+      content: "";
+      position: absolute;
+      inset: -14px -10px -14px -10px;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.2) 0 1px, transparent 1.5px);
+      background-size: 26px 26px;
+      background-position: center;
+      opacity: 0.18;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 100%);
+      animation: designTipsParticles 20s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    .tip-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 298px;
+      padding: 26px 22px 22px;
+      background: linear-gradient(180deg, rgba(17, 18, 27, 0.82) 0%, rgba(13, 14, 22, 0.94) 100%);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255,255,255,0.08);
+      transform-style: preserve-3d;
+      transition: transform 0.45s var(--ease-out-expo), border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, filter 0.35s ease;
+    }
+
+    .tip-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(217, 255, 63, 0.2) 0%, rgba(217, 255, 63, 0.04) 22%, transparent 58%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .tip-card::after {
+      content: "Learn More";
+      position: absolute;
+      right: 18px;
+      bottom: 18px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.35s ease;
+      z-index: 2;
+    }
+
+    .tip-card:hover {
+      transform: translateY(-12px) scale(1.01);
+      background: linear-gradient(180deg, rgba(20, 23, 32, 0.9) 0%, rgba(14, 16, 22, 0.96) 100%);
+      border-color: rgba(217, 255, 63, 0.38);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.7), 0 0 30px rgba(217, 255, 63, 0.12), inset 0 1px 0 rgba(255,255,255,0.12);
+    }
+
+    .tip-card:hover::before {
+      opacity: 1;
+    }
+
+    .tip-card:hover::after {
+      opacity: 1;
+      transform: translateY(0);
+      color: var(--accent);
+    }
+
+    .tip-card-top,
+    .tip-card h3,
+    .tip-card p,
+    .tip-card ul {
+      position: relative;
+      z-index: 1;
+    }
+
+    .tip-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .tip-card-index {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .tip-card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--accent);
+      font-size: 18px;
+      font-weight: 700;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 12px 26px rgba(0,0,0,0.2);
+      transition: all 0.35s ease;
+    }
+
+    .tip-card:hover .tip-card-icon {
+      transform: translateY(-3px) rotate(-8deg) scale(1.06);
+      background: var(--accent);
+      color: #000000;
+      border-color: var(--accent);
+      box-shadow: 0 0 24px rgba(217, 255, 63, 0.35);
+    }
+
+    .tip-card h3 {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 19px;
+      line-height: 1.3;
+      letter-spacing: -0.4px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .tip-card:hover h3 {
+      color: var(--accent);
+      transform: translateX(2px);
+    }
+
+    .tip-card p {
+      color: var(--text-muted);
+      font-size: 13.5px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+      transition: color 0.3s ease;
+    }
+
+    .tip-card:hover p {
+      color: rgba(255,255,255,0.82);
+    }
+
+    .tip-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .tip-card li {
+      position: relative;
+      padding-left: 14px;
+      color: var(--text-dim);
+      font-size: 12.4px;
+      line-height: 1.5;
+      border-radius: 8px;
+      transition: all 0.25s ease;
+      padding-right: 6px;
+    }
+
+    .tip-card li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 16px;
+      line-height: 1;
+      top: 0;
+      text-shadow: 0 0 18px rgba(217,255,63,0.35);
+    }
+
+    .tip-card:hover li {
+      color: rgba(255,255,255,0.72);
+      background: rgba(255,255,255,0.02);
+    }
+
+    @keyframes designTipsGlow {
+      0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.72; }
+      100% { transform: translate3d(18px, -10px, 0) scale(1.08); opacity: 1; }
+    }
+
+    @keyframes designTipsParticles {
+      0% { transform: translate3d(0, 0, 0); }
+      50% { transform: translate3d(8px, -10px, 0); }
+      100% { transform: translate3d(-6px, 8px, 0); }
+    }
+
+    @media (max-width: 1100px) {
+      .design-tips-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .design-tips-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tip-card {
+        min-height: auto;
+      }
+    }
+
+    /* ==========================================================================
+       BEFORE & AFTER DESIGN SHOWCASE
+       ========================================================================== */
+    .before-after-showcase {
+      position: relative;
+      overflow: hidden;
+      padding-top: 12px;
+      isolation: isolate;
+    }
+
+    .before-after-showcase::before {
+      content: "";
+      position: absolute;
+      inset: -12% -8% auto -8%;
+      height: 80%;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, rgba(217, 255, 63, 0.12) 0%, transparent 56%);
+      filter: blur(72px);
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .before-after-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 46px;
+    }
+
+    .before-after-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .compare-card {
+      position: relative;
+      background: linear-gradient(180deg, rgba(17, 18, 27, 0.82) 0%, rgba(13, 14, 22, 0.94) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      overflow: hidden;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      transition: transform 0.45s var(--ease-out-expo), border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .compare-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(217, 255, 63, 0.14) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .compare-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(217, 255, 63, 0.32);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.65), 0 0 32px rgba(217, 255, 63, 0.12);
+    }
+
+    .compare-card:hover::before {
+      opacity: 1;
+    }
+
+    .comparison-stage {
+      position: relative;
+      height: 340px;
+      border-radius: 18px;
+      overflow: hidden;
+      background: #0b0d14;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+      isolation: isolate;
+    }
+
+    .comparison-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      transition: width 0.4s ease;
+    }
+
+    .comparison-before {
+      width: 100%;
+      z-index: 1;
+    }
+
+    .comparison-after {
+      width: 58%;
+      z-index: 2;
+      border-right: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .compare-visual {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 24px;
+      background-size: cover;
+      background-position: center;
+      filter: saturate(0.8) contrast(0.9);
+    }
+
+    .before-visual {
+      background:
+        linear-gradient(135deg, rgba(9, 12, 18, 0.32), rgba(9, 12, 18, 0.6)),
+        linear-gradient(140deg, #2c2b34 0%, #121821 32%, #1d1e28 100%);
+    }
+
+    .after-visual {
+      background:
+        linear-gradient(135deg, rgba(5, 10, 14, 0.2), rgba(0, 0, 0, 0.45)),
+        linear-gradient(140deg, #0b1118 0%, #111d26 26%, #070b13 100%);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    .compare-visual::before,
+    .compare-visual::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 14px;
+      pointer-events: none;
+    }
+
+    .before-visual::before {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .before-visual::after {
+      inset: auto 28px 42px 28px;
+      height: 118px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+    }
+
+    .after-visual::before {
+      inset: 18px 18px 18px 18px;
+      background:
+        linear-gradient(180deg, rgba(217,255,63,0.18), rgba(0,242,254,0.08) 58%, rgba(255,255,255,0.02));
+      border: 1px solid rgba(217,255,63,0.18);
+      box-shadow: inset 0 0 18px rgba(217,255,63,0.08);
+    }
+
+    .after-visual::after {
+      inset: auto 34px 46px 34px;
+      height: 132px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px;
+      box-shadow: 0 14px 30px rgba(217,255,63,0.09);
+    }
+
+    .compare-device {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 32px;
+      height: 130px;
+      border-radius: 14px;
+      background: rgba(8, 10, 17, 0.86);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+      overflow: hidden;
+    }
+
+    .comparison-label {
+      position: absolute;
+      top: 18px;
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(10, 12, 18, 0.7);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      text-transform: uppercase;
+      color: var(--white);
+      backdrop-filter: blur(10px);
+    }
+
+    .comparison-label.before {
+      left: 18px;
+    }
+
+    .comparison-label.after {
+      right: 18px;
+      color: var(--accent);
+      border-color: rgba(217,255,63,0.32);
+      box-shadow: 0 0 18px rgba(217,255,63,0.14);
+    }
+
+    .comparison-divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 58%;
+      width: 2px;
+      background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.4) 12%, rgba(217,255,63,0.9) 50%, rgba(255,255,255,0.4) 88%, transparent 100%);
+      box-shadow: 0 0 22px rgba(217,255,63,0.35);
+      z-index: 6;
+      transform: translateX(-50%);
+    }
+
+    .comparison-handle {
+      position: absolute;
+      top: 50%;
+      left: 58%;
+      z-index: 7;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(217,255,63,0.6);
+      background: rgba(10,12,18,0.82);
+      box-shadow: 0 12px 26px rgba(0,0,0,0.35), 0 0 25px rgba(217,255,63,0.2);
+      transform: translate(-50%, -50%);
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .comparison-handle::before {
+      content: "↔";
+    }
+
+    .compare-range {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: ew-resize;
+      z-index: 8;
+    }
+
+    .compare-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .compare-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .compare-meta-item small {
+      color: var(--text-dim);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .compare-meta-item strong {
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1100px) {
+      .before-after-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .compare-meta {
+        grid-template-columns: 1fr;
+      }
+
+      .comparison-stage {
+        height: 290px;
+      }
+    }
+
+    /* ==========================================================================
        CTA BANNER SECTION
        ========================================================================== */
     .cta-banner-wrapper {
@@ -2771,8 +3356,633 @@
     }
 
     /* ==========================================================================
+       INTERACTIVE DESIGN PLAYGROUND
+       ========================================================================== */
+    .playground-shell {
+      display: grid;
+      grid-template-columns: 0.95fr 1.35fr;
+      gap: 22px;
+      padding: 22px;
+      background: rgba(10, 12, 18, 0.58);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      box-shadow: 0 22px 60px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .playground-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .control-group {
+      padding: 16px 16px 14px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 18px;
+      transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .control-group:hover {
+      border-color: rgba(217, 255, 63, 0.24);
+      transform: translateY(-2px);
+      box-shadow: 0 0 22px rgba(217,255,63,0.05);
+    }
+
+    .control-group label {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--text-dim);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .text-input,
+    .font-select {
+      width: 100%;
+      background: rgba(5, 7, 13, 0.6);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 15px;
+      padding: 13px 14px;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .text-input:focus,
+    .font-select:focus {
+      border-color: rgba(217,255,63,0.36);
+      box-shadow: 0 0 0 3px rgba(217,255,63,0.08);
+    }
+
+    .color-picker-grid,
+    .style-picker-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .color-swatch {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.12);
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+
+    .color-swatch:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 0 18px rgba(255,255,255,0.12);
+    }
+
+    .color-swatch.active {
+      border-color: rgba(217,255,63,0.7);
+      box-shadow: 0 0 0 3px rgba(217,255,63,0.12), 0 0 18px rgba(217,255,63,0.15);
+    }
+
+    .style-option {
+      height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .style-option.active,
+    .style-option:hover {
+      color: var(--white);
+      border-color: rgba(217,255,63,0.28);
+      background: rgba(217,255,63,0.08);
+      box-shadow: 0 0 20px rgba(217,255,63,0.12);
+    }
+
+    .playground-preview-panel {
+      position: relative;
+      border-radius: 24px;
+      padding: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.08);
+      overflow: hidden;
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+      --preview-primary: #d9ff3f;
+      --preview-secondary: #00f2fe;
+      --preview-surface: rgba(15, 18, 25, 0.9);
+      --preview-bg: rgba(10, 12, 17, 0.94);
+      --preview-font: "Space Grotesk", "Segoe UI", sans-serif;
+      --preview-radius: 20px;
+    }
+
+    .playground-preview-panel::before {
+      content: "";
+      position: absolute;
+      inset: -25% -20% auto auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(217,255,63,0.18), transparent 60%);
+      filter: blur(26px);
+      pointer-events: none;
+    }
+
+    .playground-preview-panel:hover {
+      transform: translateY(-3px);
+      border-color: rgba(217,255,63,0.22);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.28), 0 0 24px rgba(217,255,63,0.12);
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .preview-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--preview-primary);
+      box-shadow: 0 0 14px rgba(217,255,63,0.55);
+    }
+
+    .preview-card {
+      position: relative;
+      z-index: 1;
+      min-height: 320px;
+      padding: 24px 22px 20px;
+      background: var(--preview-bg);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: var(--preview-radius);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+      transition: all 0.35s ease;
+      font-family: var(--preview-font);
+    }
+
+    .playground-preview-panel[data-style="minimal"] .preview-card {
+      border-radius: 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .playground-preview-panel[data-style="luxury"] .preview-card {
+      border-radius: 22px;
+      box-shadow: 0 18px 40px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .playground-preview-panel[data-style="modern"] .preview-card {
+      border-radius: 26px;
+      box-shadow: 0 18px 42px rgba(0,0,0,0.26);
+    }
+
+    .playground-preview-panel[data-style="creative"] .preview-card {
+      border-radius: 32px;
+      transform: rotate(-0.6deg);
+    }
+
+    .playground-preview-panel[data-style="futuristic"] .preview-card {
+      border-radius: 28px;
+      box-shadow: 0 0 20px rgba(0,242,254,0.12), inset 0 0 0 1px rgba(0,242,254,0.12);
+    }
+
+    .preview-logo {
+      font-size: clamp(30px, 2.7vw, 52px);
+      line-height: 1;
+      letter-spacing: -0.06em;
+      font-weight: 700;
+      display: inline-block;
+      background: linear-gradient(135deg, var(--preview-primary), var(--preview-secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 18px;
+      transition: all 0.35s ease;
+      text-transform: uppercase;
+    }
+
+    .preview-tagline {
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.8;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      max-width: 370px;
+    }
+
+    .preview-swatch-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .preview-swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.14);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.16);
+    }
+
+    .preview-surface {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .surface-block {
+      height: 90px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.06);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .surface-block::before {
+      content: "";
+      position: absolute;
+      inset: 10px 12px auto;
+      height: 16px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--preview-primary), var(--preview-secondary));
+      opacity: 0.95;
+    }
+
+    .surface-block::after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    @media (max-width: 1100px) {
+      .playground-shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .playground-shell {
+        padding: 16px;
+      }
+
+      .style-option {
+        flex: 1 1 calc(50% - 10px);
+        min-width: 120px;
+      }
+    }
+
+    /* ==========================================================================
        RESPONSIVE DESIGN (MEDIA QUERIES)
        ========================================================================== */
+    /* ==========================================================================
+       AI DESIGN HELPER FEATURE
+       ========================================================================== */
+    .ai-helper-widget {
+      position: fixed;
+      right: 28px;
+      bottom: 28px;
+      z-index: 1200;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 16px;
+      pointer-events: none;
+    }
+
+    .ai-helper-launcher {
+      pointer-events: auto;
+      width: 68px;
+      height: 68px;
+      border: 1px solid rgba(217, 255, 63, 0.4);
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(217, 255, 63, 0.18), rgba(10, 12, 21, 0.9));
+      box-shadow: 0 0 20px rgba(217, 255, 63, 0.2), 0 18px 40px rgba(0, 0, 0, 0.38);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      cursor: pointer;
+      transition: transform 0.25s var(--ease-out-expo), box-shadow 0.25s ease, border-color 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ai-helper-launcher::before {
+      content: "";
+      position: absolute;
+      inset: -20% -20% auto auto;
+      width: 80%;
+      height: 80%;
+      background: radial-gradient(circle, rgba(217, 255, 63, 0.26), transparent 65%);
+      filter: blur(10px);
+    }
+
+    .ai-helper-launcher:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 0 30px rgba(217, 255, 63, 0.35), 0 22px 48px rgba(0, 0, 0, 0.42);
+      border-color: rgba(217, 255, 63, 0.6);
+    }
+
+    .ai-helper-launcher svg {
+      width: 30px;
+      height: 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .ai-helper-panel {
+      pointer-events: auto;
+      width: min(420px, calc(100vw - 32px));
+      border-radius: 26px;
+      background: rgba(10, 12, 19, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.45), 0 0 24px rgba(78, 255, 220, 0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      overflow: hidden;
+      transform: translateY(18px) scale(0.96);
+      opacity: 0;
+      visibility: hidden;
+      transition: transform 0.32s var(--ease-out-expo), opacity 0.32s ease, visibility 0.32s ease;
+    }
+
+    .ai-helper-widget.open .ai-helper-panel {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .ai-helper-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, rgba(217,255,63,0.04), rgba(255,255,255,0.01));
+    }
+
+    .ai-helper-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .ai-helper-brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, rgba(217,255,63,0.18), rgba(0,242,254,0.1));
+      border: 1px solid rgba(217,255,63,0.28);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 0 18px rgba(217,255,63,0.1);
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .ai-helper-brand-text {
+      min-width: 0;
+    }
+
+    .ai-helper-brand-text strong {
+      display: block;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .ai-helper-brand-text span {
+      display: block;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .ai-helper-close {
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      border-radius: 10px;
+      color: var(--white);
+      cursor: pointer;
+      font-size: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s ease;
+    }
+
+    .ai-helper-close:hover {
+      background: rgba(217,255,63,0.08);
+      border-color: rgba(217,255,63,0.32);
+      color: var(--accent);
+    }
+
+    .ai-helper-body {
+      padding: 18px 18px 12px;
+      background: rgba(9, 10, 17, 0.45);
+    }
+
+    .ai-helper-messages {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .ai-helper-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .ai-helper-messages::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.1);
+      border-radius: 999px;
+    }
+
+    .chat-bubble {
+      max-width: 86%;
+      padding: 13px 14px;
+      border-radius: 18px;
+      line-height: 1.6;
+      font-size: 13px;
+      letter-spacing: 0.01em;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    .chat-bubble.ai {
+      align-self: flex-start;
+      background: rgba(255,255,255,0.035);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: var(--text-muted);
+      border-top-left-radius: 8px;
+    }
+
+    .chat-bubble.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, rgba(217,255,63,0.16), rgba(0,242,254,0.12));
+      border: 1px solid rgba(217,255,63,0.3);
+      color: var(--white);
+      border-top-right-radius: 8px;
+    }
+
+    .chat-typing {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 14px;
+      border-radius: 14px 14px 14px 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      min-width: 90px;
+    }
+
+    .chat-typing span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+      animation: aiDots 1.25s ease-in-out infinite;
+      box-shadow: 0 0 12px rgba(217,255,63,0.6);
+    }
+
+    .chat-typing span:nth-child(2) {
+      animation-delay: 0.18s;
+    }
+
+    .chat-typing span:nth-child(3) {
+      animation-delay: 0.36s;
+    }
+
+    @keyframes aiDots {
+      0%, 80%, 100% {
+        opacity: 0.35;
+        transform: translateY(0);
+      }
+      40% {
+        opacity: 1;
+        transform: translateY(-2px);
+      }
+    }
+
+    .ai-helper-suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0 18px 18px;
+      margin-top: 6px;
+    }
+
+    .ai-helper-suggestion {
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.02);
+      color: var(--text-muted);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .ai-helper-suggestion:hover {
+      color: var(--white);
+      border-color: rgba(217,255,63,0.32);
+      box-shadow: 0 0 18px rgba(217,255,63,0.12);
+      transform: translateY(-1px);
+    }
+
+    .ai-helper-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px 18px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      background: rgba(8, 9, 15, 0.52);
+    }
+
+    .ai-helper-input {
+      flex: 1;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      min-height: 46px;
+      padding: 12px 14px;
+      color: var(--white);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .ai-helper-input:focus {
+      border-color: rgba(217,255,63,0.38);
+      box-shadow: 0 0 0 3px rgba(217,255,63,0.08);
+    }
+
+    .ai-helper-send {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      border: 1px solid rgba(217,255,63,0.3);
+      background: linear-gradient(135deg, rgba(217,255,63,0.18), rgba(0,242,254,0.13));
+      color: var(--accent);
+      font-size: 18px;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .ai-helper-send:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 18px rgba(217,255,63,0.18);
+    }
+
+    @media (max-width: 768px) {
+      .ai-helper-widget {
+        right: 18px;
+        bottom: 18px;
+      }
+
+      .ai-helper-launcher {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
     @media (max-width: 1100px) {
       .hero-section {
         grid-template-columns: 1fr;
@@ -3457,6 +4667,255 @@
     </section>
 
     <!-- =========================
+         DESIGN TIPS SECTION
+         ========================= -->
+    <section class="section-container design-tips-section" id="design-tips">
+      <div class="design-tips-header reveal">
+        <div>
+          <div class="section-label">04 / DESIGN TIPS</div>
+          <h2 class="section-heading-lg">
+            Creative clarity starts with <span class="highlight">better choices.</span>
+          </h2>
+        </div>
+      </div>
+
+      <div class="design-tips-grid">
+        <article class="tip-card tilt-card reveal reveal-delay-1">
+          <div class="tip-card-top">
+            <span class="tip-card-index">01</span>
+            <span class="tip-card-icon">✦</span>
+          </div>
+          <h3>How to choose colors</h3>
+          <p>Start with a clear mood, then build a palette around contrast, harmony, and a few consistent accents.</p>
+          <ul>
+            <li>Limit your palette to 2–3 primary colors</li>
+            <li>Use contrast for hierarchy and emphasis</li>
+            <li>Test colors on dark and light backgrounds</li>
+          </ul>
+        </article>
+
+        <article class="tip-card tilt-card reveal reveal-delay-2">
+          <div class="tip-card-top">
+            <span class="tip-card-index">02</span>
+            <span class="tip-card-icon">Aa</span>
+          </div>
+          <h3>How to choose fonts</h3>
+          <p>Typography should support the message. Pick a readable body font and a distinctive headline style.</p>
+          <ul>
+            <li>Pair one expressive display font with one clean sans serif</li>
+            <li>Use spacing and hierarchy to guide attention</li>
+            <li>Keep readability consistent across devices</li>
+          </ul>
+        </article>
+
+        <article class="tip-card tilt-card reveal reveal-delay-3">
+          <div class="tip-card-top">
+            <span class="tip-card-index">03</span>
+            <span class="tip-card-icon">▣</span>
+          </div>
+          <h3>Poster design tips</h3>
+          <p>Poster design works best when the main message is obvious in a single glance.</p>
+          <ul>
+            <li>Lead with a bold headline and focal image</li>
+            <li>Create rhythm through size and spacing</li>
+            <li>Leave breathing room around key elements</li>
+          </ul>
+        </article>
+
+        <article class="tip-card tilt-card reveal reveal-delay-4">
+          <div class="tip-card-top">
+            <span class="tip-card-index">04</span>
+            <span class="tip-card-icon">◎</span>
+          </div>
+          <h3>Logo design tips</h3>
+          <p>A strong logo should be memorable, scalable, and recognizable in both digital and print formats.</p>
+          <ul>
+            <li>Prioritize simplicity and clarity over detail</li>
+            <li>Ensure it works in black and white</li>
+            <li>Design for flexibility across applications</li>
+          </ul>
+        </article>
+
+        <article class="tip-card tilt-card reveal reveal-delay-5">
+          <div class="tip-card-top">
+            <span class="tip-card-index">05</span>
+            <span class="tip-card-icon">✧</span>
+          </div>
+          <h3>Branding basics</h3>
+          <p>Branding is more than a logo. It is the emotional and visual system that people remember.</p>
+          <ul>
+            <li>Define your tone, voice, and visual direction</li>
+            <li>Keep design systems consistent across touchpoints</li>
+            <li>Build trust through clarity and repetition</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================
+         BEFORE & AFTER DESIGN SHOWCASE
+         ========================= -->
+    <section class="section-container before-after-showcase reveal" id="before-after">
+      <div class="before-after-header reveal reveal-delay-1">
+        <div>
+          <div class="section-label">05 / CASE STUDY</div>
+          <h2 class="section-heading-lg">
+            Before &amp; After <span class="highlight">Design Showcase.</span>
+          </h2>
+        </div>
+      </div>
+
+      <div class="before-after-grid">
+        <article class="compare-card reveal reveal-delay-2 tilt-card">
+          <div class="comparison-stage" data-default="58">
+            <div class="comparison-layer comparison-before">
+              <div class="compare-visual before-visual">
+                <span class="comparison-label before">Before</span>
+                <div class="compare-device"></div>
+              </div>
+            </div>
+            <div class="comparison-layer comparison-after" style="width: 58%;">
+              <div class="compare-visual after-visual">
+                <span class="comparison-label after">After</span>
+                <div class="compare-device"></div>
+              </div>
+            </div>
+            <div class="comparison-divider" aria-hidden="true"></div>
+            <div class="comparison-handle" aria-hidden="true"></div>
+            <input class="compare-range" type="range" min="0" max="100" value="58" aria-label="Before and after comparison slider" />
+          </div>
+          <div class="compare-meta">
+            <div class="compare-meta-item">
+              <small>Project Type</small>
+              <strong>Brand Refresh</strong>
+            </div>
+            <div class="compare-meta-item">
+              <small>Design Changes</small>
+              <strong>Typography, contrast, layout balance</strong>
+            </div>
+            <div class="compare-meta-item">
+              <small>Improvement</small>
+              <strong>Sharper hierarchy and premium perception</strong>
+            </div>
+          </div>
+        </article>
+
+        <article class="compare-card reveal reveal-delay-3 tilt-card">
+          <div class="comparison-stage" data-default="64">
+            <div class="comparison-layer comparison-before">
+              <div class="compare-visual before-visual">
+                <span class="comparison-label before">Before</span>
+                <div class="compare-device"></div>
+              </div>
+            </div>
+            <div class="comparison-layer comparison-after" style="width: 64%;">
+              <div class="compare-visual after-visual">
+                <span class="comparison-label after">After</span>
+                <div class="compare-device"></div>
+              </div>
+            </div>
+            <div class="comparison-divider" aria-hidden="true"></div>
+            <div class="comparison-handle" aria-hidden="true"></div>
+            <input class="compare-range" type="range" min="0" max="100" value="64" aria-label="Before and after comparison slider" />
+          </div>
+          <div class="compare-meta">
+            <div class="compare-meta-item">
+              <small>Project Type</small>
+              <strong>Poster System</strong>
+            </div>
+            <div class="compare-meta-item">
+              <small>Design Changes</small>
+              <strong>Visual rhythm, focal emphasis, spacing</strong>
+            </div>
+            <div class="compare-meta-item">
+              <small>Improvement</small>
+              <strong>Cleaner storytelling and stronger visual impact</strong>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- =========================
+         INTERACTIVE DESIGN PLAYGROUND
+         ========================= -->
+    <section class="section-container reveal" id="playground">
+      <div class="design-tips-header reveal reveal-delay-1">
+        <div>
+          <div class="section-label">05 / INTERACTIVE PLAYGROUND</div>
+          <h2 class="section-heading-lg">
+            Explore your <span class="highlight">brand before you build.</span>
+          </h2>
+        </div>
+      </div>
+
+      <div class="playground-shell reveal reveal-delay-2">
+        <div class="playground-controls">
+          <div class="control-group">
+            <label for="brandNameInput">Brand name</label>
+            <input id="brandNameInput" class="text-input" type="text" value="MIT DISINIG" maxlength="26" />
+          </div>
+
+          <div class="control-group">
+            <label>Color experiment</label>
+            <div class="color-picker-grid">
+              <button class="color-swatch active" data-primary="#d9ff3f" data-secondary="#00f2fe" data-surface="rgba(15, 18, 25, 0.9)" style="background: linear-gradient(135deg, #d9ff3f, #00f2fe);" aria-label="Neon studio palette"></button>
+              <button class="color-swatch" data-primary="#f5d88b" data-secondary="#d17d48" data-surface="rgba(22, 17, 20, 0.92)" style="background: linear-gradient(135deg, #f5d88b, #d17d48);" aria-label="Luxury amber palette"></button>
+              <button class="color-swatch" data-primary="#b5d2ff" data-secondary="#8b7cf6" data-surface="rgba(12, 15, 26, 0.92)" style="background: linear-gradient(135deg, #b5d2ff, #8b7cf6);" aria-label="Cool modern palette"></button>
+              <button class="color-swatch" data-primary="#9ce7d0" data-secondary="#3fc4b4" data-surface="rgba(12, 17, 21, 0.92)" style="background: linear-gradient(135deg, #9ce7d0, #3fc4b4);" aria-label="Fresh mint palette"></button>
+              <button class="color-swatch" data-primary="#ff9bc8" data-secondary="#c157ff" data-surface="rgba(19, 12, 24, 0.92)" style="background: linear-gradient(135deg, #ff9bc8, #c157ff);" aria-label="Creative magenta palette"></button>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label for="fontSelect">Font preview</label>
+            <select id="fontSelect" class="font-select">
+              <option value="Space Grotesk, 'Segoe UI', sans-serif">Space Grotesk</option>
+              <option value="'Segoe UI', sans-serif">Modern Sans</option>
+              <option value="Georgia, serif">Editorial Serif</option>
+              <option value="'Trebuchet MS', sans-serif">Bold Display</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label>Design style</label>
+            <div class="style-picker-grid">
+              <button class="style-option active" data-style="minimal">Minimal</button>
+              <button class="style-option" data-style="luxury">Luxury</button>
+              <button class="style-option" data-style="modern">Modern</button>
+              <button class="style-option" data-style="creative">Creative</button>
+              <button class="style-option" data-style="futuristic">Futuristic</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="playground-preview-panel" id="playgroundPreviewPanel" data-style="minimal">
+          <div class="preview-header">
+            <span class="preview-dot" aria-hidden="true"></span>
+            <span>Brand Preview</span>
+          </div>
+
+          <div class="preview-card">
+            <div class="preview-logo" id="brandPreviewText">MIT DISINIG</div>
+            <div class="preview-tagline">Designing next-wave brand experiences</div>
+
+            <div class="preview-swatch-row">
+              <span class="preview-swatch" id="previewSwatchA" style="background:#d9ff3f;"></span>
+              <span class="preview-swatch" id="previewSwatchB" style="background:#00f2fe;"></span>
+              <span class="preview-swatch" id="previewSwatchC" style="background:#1b2333;"></span>
+            </div>
+
+            <div class="preview-surface">
+              <div class="surface-block"></div>
+              <div class="surface-block"></div>
+              <div class="surface-block"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================
          PROCESS SECTION
          ========================= -->
     <section class="section-container" id="process">
@@ -3708,6 +5167,49 @@
     </section>
 
   </main>
+
+  <div class="ai-helper-widget" id="aiHelperWidget">
+    <div class="ai-helper-panel" id="aiHelperPanel" aria-live="polite">
+      <div class="ai-helper-header">
+        <div class="ai-helper-brand">
+          <div class="ai-helper-brand-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 2.5C8.1 2.5 5 5.6 5 9.5c0 1.4.4 2.8 1.2 4l-1.4 5.5 5.4-2.2c.9.4 1.8.6 2.8.6 3.9 0 7-3.1 7-7 0-3.9-3.1-7-7-7Zm0 11.8c-1.2 0-2.3-.4-3.2-1.2l-.2-.2-2.3.9.8-2.4-.2-.2c-.8-.9-1.2-2.1-1.2-3.3 0-2.8 2.3-5.1 5.1-5.1s5.1 2.3 5.1 5.1-2.3 5.1-5.1 5.1Zm-2.6-3.5h5.2M12 8.7v5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="ai-helper-brand-text">
+            <strong>AI Design Helper</strong>
+            <span>Creative studio support</span>
+          </div>
+        </div>
+        <button class="ai-helper-close" id="aiHelperClose" aria-label="Close AI helper">×</button>
+      </div>
+
+      <div class="ai-helper-body">
+        <div class="ai-helper-messages" id="aiHelperMessages">
+          <div class="chat-bubble ai">Hi, I can help shape your next brand direction. Ask about logo ideas, color palettes, poster concepts, or social media visuals.</div>
+        </div>
+      </div>
+
+      <div class="ai-helper-suggestions" aria-label="Example questions">
+        <button class="ai-helper-suggestion" data-question="Give me 3 logo concepts for a premium fashion brand">Logo ideas</button>
+        <button class="ai-helper-suggestion" data-question="What colors match a modern luxury tech brand?">Brand colors</button>
+        <button class="ai-helper-suggestion" data-question="Create poster concept ideas for a product launch">Poster concepts</button>
+        <button class="ai-helper-suggestion" data-question="Suggest social media post ideas for my creative business">Social ideas</button>
+      </div>
+
+      <div class="ai-helper-input-wrap">
+        <input type="text" id="aiHelperInput" class="ai-helper-input" placeholder="Ask for design advice..." aria-label="Ask the AI design helper" />
+        <button class="ai-helper-send" id="aiHelperSend" aria-label="Send message">➤</button>
+      </div>
+    </div>
+
+    <button class="ai-helper-launcher" id="aiHelperToggle" aria-label="Open AI design helper">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 2.5C8.1 2.5 5 5.6 5 9.5c0 1.4.4 2.8 1.2 4l-1.4 5.5 5.4-2.2c.9.4 1.8.6 2.8.6 3.9 0 7-3.1 7-7 0-3.9-3.1-7-7-7Zm0 11.8c-1.2 0-2.3-.4-3.2-1.2l-.2-.2-2.3.9.8-2.4-.2-.2c-.8-.9-1.2-2.1-1.2-3.3 0-2.8 2.3-5.1 5.1-5.1s5.1 2.3 5.1 5.1-2.3 5.1-5.1 5.1Zm-2.6-3.5h5.2M12 8.7v5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
 
   <!-- =========================
        FOOTER
@@ -4084,9 +5586,12 @@
             const rotateX = ((y - centerY) / centerY) * -8;
             const rotateY = ((x - centerX) / centerX) * 8;
 
-            card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateZ(8px)`;
+            const transforms = card.classList.contains("tip-card")
+              ? `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translate3d(0, 0, 20px)`
+              : `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateZ(8px)`;
 
-            // Set specular reflection CSS coordinates
+            card.style.transform = transforms;
+
             const percentX = (x / rect.width) * 100;
             const percentY = (y / rect.height) * 100;
             card.style.setProperty("--mouse-x", `${percentX}%`);
@@ -4094,7 +5599,7 @@
           });
 
           card.addEventListener("mouseleave", () => {
-            card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0)";
+            card.style.transform = "";
           });
         });
       }
@@ -4230,6 +5735,34 @@
       );
 
       reveals.forEach((el) => revealObserver.observe(el));
+
+      /* ==========================================================================
+         BEFORE & AFTER COMPARISON SLIDER
+         ========================================================================== */
+      const comparisonStages = document.querySelectorAll(".comparison-stage");
+
+      comparisonStages.forEach((stage) => {
+        const range = stage.querySelector(".compare-range");
+        const after = stage.querySelector(".comparison-after");
+        const divider = stage.querySelector(".comparison-divider");
+        const handle = stage.querySelector(".comparison-handle");
+
+        if (!range || !after || !divider || !handle) return;
+
+        const updateSlider = (value) => {
+          const percent = Number(value);
+          after.style.width = `${percent}%`;
+          divider.style.left = `${percent}%`;
+          handle.style.left = `${percent}%`;
+        };
+
+        const initialValue = Number(stage.dataset.default || range.value || 58);
+        updateSlider(initialValue);
+
+        range.addEventListener("input", (event) => {
+          updateSlider(event.target.value);
+        });
+      });
 
       /* ==========================================================================
          ANIMATED STATS COUNTER
@@ -4551,6 +6084,177 @@
           closeModal();
         }
       });
+
+      /* ==========================================================================
+         AI DESIGN HELPER
+         ========================================================================== */
+      const aiHelperWidget = document.getElementById("aiHelperWidget");
+      const aiHelperToggle = document.getElementById("aiHelperToggle");
+      const aiHelperClose = document.getElementById("aiHelperClose");
+      const aiHelperInput = document.getElementById("aiHelperInput");
+      const aiHelperSend = document.getElementById("aiHelperSend");
+      const aiHelperMessages = document.getElementById("aiHelperMessages");
+      const aiHelperSuggestionButtons = document.querySelectorAll(".ai-helper-suggestion");
+
+      function addAiBubble(text, sender = "ai") {
+        const bubble = document.createElement("div");
+        bubble.className = `chat-bubble ${sender}`;
+        bubble.textContent = text;
+        aiHelperMessages.appendChild(bubble);
+        aiHelperMessages.scrollTop = aiHelperMessages.scrollHeight;
+      }
+
+      function addTypingBubble() {
+        const typing = document.createElement("div");
+        typing.className = "chat-typing";
+        typing.innerHTML = "<span></span><span></span><span></span>";
+        aiHelperMessages.appendChild(typing);
+        aiHelperMessages.scrollTop = aiHelperMessages.scrollHeight;
+        return typing;
+      }
+
+      function generateAiResponse(prompt) {
+        const lower = prompt.toLowerCase();
+
+        if (lower.includes("logo")) {
+          return "For a logo, try a clean wordmark with one standout symbol, high contrast, and a premium sans-serif. Keep it adaptable for website, packaging, and social profile use.";
+        }
+
+        if (lower.includes("color") || lower.includes("palette") || lower.includes("brand")) {
+          return "A strong brand palette usually mixes one dark anchor tone, one luminous accent, and one soft neutral. For a premium studio feel, try deep charcoal, warm ivory, and lime or cyan accents.";
+        }
+
+        if (lower.includes("poster") || lower.includes("campaign")) {
+          return "Poster ideas should start with a hero statement, large visual contrast, and one clear focal object. Use negative space and an oversized headline to keep the composition premium and modern.";
+        }
+
+        if (lower.includes("social") || lower.includes("instagram")) {
+          return "For social content, create a repeatable visual system: 3 post types, a consistent color rhythm, and one signature typography pattern so your brand feels instantly recognizable.";
+        }
+
+        if (lower.includes("design") || lower.includes("advice") || lower.includes("help")) {
+          return "Keep your design simple, readable, and consistent. Prioritize hierarchy, spacing, and a single strong message before adding detail or decoration.";
+        }
+
+        return "A clear creative direction wins more attention than overly busy design. Start with one strong idea, keep your typography consistent, and use contrast to guide the eye.";
+      }
+
+      function sendAiMessage(prompt) {
+        const userPrompt = (prompt || aiHelperInput.value).trim();
+        if (!userPrompt) return;
+
+        addAiBubble(userPrompt, "user");
+        if (aiHelperInput) aiHelperInput.value = "";
+
+        const typing = addTypingBubble();
+        const response = generateAiResponse(userPrompt);
+
+        setTimeout(() => {
+          if (typing && typing.parentNode) typing.parentNode.removeChild(typing);
+          addAiBubble(response, "ai");
+        }, 900);
+      }
+
+      if (aiHelperToggle) {
+        aiHelperToggle.addEventListener("click", () => {
+          if (aiHelperWidget) {
+            aiHelperWidget.classList.toggle("open");
+          }
+          setTimeout(() => {
+            if (aiHelperWidget && aiHelperWidget.classList.contains("open") && aiHelperInput) {
+              aiHelperInput.focus();
+            }
+          }, 120);
+        });
+      }
+
+      if (aiHelperClose) {
+        aiHelperClose.addEventListener("click", () => {
+          if (aiHelperWidget) aiHelperWidget.classList.remove("open");
+        });
+      }
+
+      if (aiHelperSend) {
+        aiHelperSend.addEventListener("click", () => sendAiMessage());
+      }
+
+      if (aiHelperInput) {
+        aiHelperInput.addEventListener("keydown", (event) => {
+          if (event.key === "Enter") sendAiMessage();
+        });
+      }
+
+      aiHelperSuggestionButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          sendAiMessage(button.dataset.question || button.textContent.trim());
+          if (aiHelperWidget) aiHelperWidget.classList.add("open");
+        });
+      });
+
+      /* ==========================================================================
+         INTERACTIVE DESIGN PLAYGROUND
+         ========================================================================== */
+      const playgroundPreviewPanel = document.getElementById("playgroundPreviewPanel");
+      const brandNameInput = document.getElementById("brandNameInput");
+      const brandPreviewText = document.getElementById("brandPreviewText");
+      const fontSelect = document.getElementById("fontSelect");
+      const colorSwatches = document.querySelectorAll(".color-swatch");
+      const styleButtons = document.querySelectorAll(".style-option");
+      const previewSwatchA = document.getElementById("previewSwatchA");
+      const previewSwatchB = document.getElementById("previewSwatchB");
+      const previewSwatchC = document.getElementById("previewSwatchC");
+
+      function updateBrandPreview() {
+        if (!brandPreviewText || !brandNameInput) return;
+        const value = brandNameInput.value.trim() || "MIT DISINIG";
+        brandPreviewText.textContent = value.toUpperCase();
+      }
+
+      function updatePalette(primary, secondary, surface) {
+        if (!playgroundPreviewPanel) return;
+        playgroundPreviewPanel.style.setProperty("--preview-primary", primary);
+        playgroundPreviewPanel.style.setProperty("--preview-secondary", secondary);
+        playgroundPreviewPanel.style.setProperty("--preview-bg", surface);
+
+        if (previewSwatchA) previewSwatchA.style.background = primary;
+        if (previewSwatchB) previewSwatchB.style.background = secondary;
+        if (previewSwatchC) previewSwatchC.style.background = surface;
+      }
+
+      function updateFontFamily(value) {
+        if (!playgroundPreviewPanel) return;
+        playgroundPreviewPanel.style.setProperty("--preview-font", value);
+      }
+
+      if (brandNameInput) {
+        brandNameInput.addEventListener("input", updateBrandPreview);
+      }
+
+      colorSwatches.forEach((swatch) => {
+        swatch.addEventListener("click", () => {
+          colorSwatches.forEach((item) => item.classList.remove("active"));
+          swatch.classList.add("active");
+          updatePalette(swatch.dataset.primary, swatch.dataset.secondary, swatch.dataset.surface);
+        });
+      });
+
+      styleButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          styleButtons.forEach((item) => item.classList.remove("active"));
+          button.classList.add("active");
+          if (playgroundPreviewPanel) {
+            playgroundPreviewPanel.setAttribute("data-style", button.dataset.style);
+          }
+        });
+      });
+
+      if (fontSelect) {
+        fontSelect.addEventListener("change", (event) => updateFontFamily(event.target.value));
+      }
+
+      updateBrandPreview();
+      updatePalette("#d9ff3f", "#00f2fe", "rgba(15, 18, 25, 0.9)");
+      updateFontFamily("Space Grotesk, 'Segoe UI', sans-serif");
 
       /* ==========================================================================
          FORM SUBMISSIONS (MODAL & DIRECT) WITH SUCCESS ANIMATIONS
